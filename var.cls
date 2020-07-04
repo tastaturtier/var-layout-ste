@@ -10,7 +10,7 @@
 % issue: Erklärung zu fehlenden ersten vier Seiten
 % issue: Erklärung xetex + latex und fontspec
 % feature: Makefile und Projekt-Layout zum Clonen
-
+% modus draft (draft für book + ebook + keine Kapitelgrafik), draft.tex automatisch aus Makefile generieren (bindet nur chapter ein)
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{var}[2020/06/29 var book series LaTeX class]
 \RequirePackage{ifthen}
@@ -76,9 +76,9 @@
 \paragraphfont{\raggedright}
 
 % Layout:
-\RequirePackage[all]{nowidow} % keine Hurenkinder und Schusterjungen nach Möglichkeit
-\raggedbottom % "Flattersatz" zum Seitenende
-\sloppy
+\RequirePackage[all]{nowidow}          % keine Hurenkinder und Schusterjungen nach Möglichkeit
+\raggedbottom                          % "Flattersatz" zum Seitenende
+
 \RequirePackage[absolute]{textpos} 
 
 % Parameter, die die Positionierung von floats (figure, table, listing, exkurs) beeinflussen:
@@ -98,13 +98,11 @@
 \RequirePackage[paperwidth=16cm,paperheight=23cm]{geometry}
 \geometry{tmargin=2.4cm, bmargin=2.3cm, textwidth=12cm, marginparwidth=5em, marginparsep=1em}
 
-
 % Anschnitt von 3mm bei Print:
 \ifthenelse{\boolean{print}}{
   \RequirePackage[cam,width=163truemm,height=233truemm,center]{crop}
 }{}  
 
-\RequirePackage{array} % benötigt?
 \newcommand{\kapitelbild}{}
 \newcommand{\kapitelbildsrc}{}
 
@@ -115,16 +113,16 @@
 \RequirePackage{color}
 \RequirePackage{float}
 \RequirePackage{graphicx}
-\RequirePackage{multirow}
+%\RequirePackage{multirow}
 
 \RequirePackage{tikz}
-\usetikzlibrary{shapes}
-\usetikzlibrary{shadings}
+%\usetikzlibrary{shapes}
+%\usetikzlibrary{shadings}
 \usetikzlibrary{positioning}
-\usetikzlibrary{fit}
+%\usetikzlibrary{fit}
 \usetikzlibrary{calc}
-\usetikzlibrary{arrows}
-\usetikzlibrary{arrows.meta}
+%\usetikzlibrary{arrows}
+%\usetikzlibrary{arrows.meta}
 
 \RequirePackage{setspace}
 \onehalfspacing
@@ -257,7 +255,7 @@
 \RequirePackage{imakeidx}
 \makeindex
 \indexsetup{level=\chapter,toclevel=chapter} 
-\indexprologue{\prepareactivitiessection{Index}}
+\indexprologue{\bildnachweis{\kapitelbildsrc}\prepareactivitiessection{Index}}
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -493,7 +491,7 @@
 \AtEndDocument{
   \varpart{Anhang}{img/headappendix.png}{ 
     Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)}
-  \bildnachweis{\kapitelbildsrc}\printindex
+  \printindex
   \pageBreakForOdd
   \printnomenclature[2.4cm]
   \varchapter{\varbildnachweisename}{}
