@@ -1,7 +1,7 @@
 % todo: Bildnachweis des Titels als Parameter
 % todo: Bild und Bildquelle für Anhang-KapitelIllu
 % andere Startseitenzahl bei ebook
-% todo: lst-Konfiguration nach private.sty
+% todo: lst-Konfiguration nach private.sty verschieben
 % todo: widefigure etc. prüfen und ebook berücksichtigen
 % todo: "Interface" definieren (CheckCommand's, Environments)
 % todo: Sprachoption für class, \setXYZ statt \renewcommand für Texte => keyval's
@@ -40,7 +40,7 @@
 \newcommand{\varbildnachweisename}{Bildnachweise}
 \renewcommand{\contentsname}{Inhaltsverzeichnis}
 \newcommand{\prefacefile}{foreword}
-\newcommand{\lastpagefile}{VAR-Reihe}
+\newcommand{\lastpagefile}{lastpage}
 \newcommand{\titelbildnachweis}{blubber}
 
 \RequirePackage{xunicode}
@@ -135,7 +135,7 @@
 %% überbreite Grafiken; sollen den jeweiligen Marginalienrand ausnutzen
 %%
 \RequirePackage{ifoddpage}
-\CheckCommand{\widefigure}[3]{
+\newcommand{\varwidefigure}[3]{
   \begin{figure}
   \checkoddpage
   \ifoddpage
@@ -146,7 +146,7 @@
   \caption{\label{#2}#3}
   \end{figure}
   \edef\marginnotetextwidth{\the\textwidth}}
-\CheckCommand{\widegraphics}[3]{
+\newcommand{\varwidegraphics}[3]{
   \begin{figure}
   \checkoddpage
   \ifoddpage
@@ -157,7 +157,7 @@
   \caption{\label{#2}#3}
   \end{figure}
   \edef\marginnotetextwidth{\the\textwidth}}
-\CheckCommand{\widegraphicsRotate}[3]{
+\newcommand{\varwidegraphicsRotate}[3]{
   \begin{figure}
   \checkoddpage
   \ifoddpage
@@ -275,9 +275,6 @@
   \itemsep\nomitemsep
   \let\makelabel\nomlabel}}
 \renewcommand{\endthenomenclature}{\endlist\nompostamble}
-% % the following is useful when we have the old nomencl.sty package
-% \providecommand{\printnomenclature}{\printglossary}
-% \providecommand{\makenomenclature}{\makeglossary}
 \makenomenclature
 %%
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -494,7 +491,7 @@
 }
 
 \AtEndDocument{
-  \varpart{Anhang}{headappendix.png}{ 
+  \varpart{Anhang}{img/headappendix.png}{ 
     Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)}
   \bildnachweis{\kapitelbildsrc}\printindex
   \pageBreakForOdd
