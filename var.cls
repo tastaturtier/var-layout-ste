@@ -39,7 +39,7 @@
 \newcommand{\varlistingname}{Listing}
 \newcommand{\varbildnachweisename}{Bildnachweise}
 \renewcommand{\contentsname}{Inhaltsverzeichnis}
-\newcommand{\prefacefile}{vorwort}
+\newcommand{\prefacefile}{foreword}
 \newcommand{\lastpagefile}{VAR-Reihe}
 \newcommand{\titelbildnachweis}{blubber}
 
