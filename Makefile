@@ -1,13 +1,13 @@
 
 book.pdf: book.tex var.cls private.sty foreword.tex lastpage.tex img/*.png book/*/*
-	xelatex -no-pdf book.tex; \
-	makeindex book; \
-	makeindex book.nlo -s nomencl.ist -o book.nls; \
-	xelatex -no-pdf book.tex; \
-	xelatex -no-pdf book.tex; \
-	xelatex -no-pdf book.tex; \
-	xelatex -no-pdf book.tex; \
-	xelatex -no-pdf book.tex; \
+	xelatex -no-pdf -halt-on-error book.tex && \
+	makeindex book && \
+	makeindex book.nlo -s nomencl.ist -o book.nls && \
+	xelatex -no-pdf -halt-on-error book.tex && \
+	xelatex -no-pdf -halt-on-error book.tex && \
+	xelatex -no-pdf -halt-on-error book.tex && \
+	xelatex -no-pdf -halt-on-error book.tex && \
+	xelatex -no-pdf -halt-on-error book.tex && \
 	xdvipdfmx book.xdv 
 
 clean:
