@@ -1,0 +1,54 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Anführungszeichen: \q{xyz} => <<xyz>>
+%%
+\providecommand{\q}[1]{«{#1}»} % bei xelatex
+%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Abkürzungen
+%%
+\RequirePackage{xspace}
+\providecommand{\zB}{\mbox{z.\,B.}\xspace}
+\providecommand{\ua}{\mbox{u.\,a.}\xspace}
+\providecommand{\su}{\mbox{s.\,u.}\xspace}
+\providecommand{\so}{\mbox{s.\,o.}\xspace}
+\providecommand{\iA}{\mbox{i.\,Allg.}\xspace}
+\providecommand{\ggf}{\mbox{ggf.}\xspace}
+%\providecommand{\dh}{\mbox{d.\,h.}\xspace}
+\providecommand{\bspw}{\mbox{bspw.}\xspace}
+\providecommand{\bzw}{\mbox{bzw.}\xspace}
+\providecommand{\usw}{\mbox{usw.}\xspace}
+\providecommand{\etc}{\mbox{etc.}\xspace}
+%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% for talking about source codes
+%%
+\definecolor{comment}{RGB}{63, 127, 95}
+\definecolor{javadoccomment}{RGB}{63, 95, 191}
+\definecolor{keyword}{RGB}{108, 0, 67}
+\definecolor{type}{RGB}{0, 0, 0}
+\definecolor{method}{RGB}{0, 0, 0}
+\definecolor{variable}{RGB}{0, 0, 0}
+\definecolor{literal}{RGB}{31,0, 255}
+\definecolor{operator}{RGB}{0, 0, 0}
+\definecolor{darkgreen}{RGB}{14, 144, 102}
+\definecolor{gray}{RGB}{50, 50, 50}
+\providecommand{\keyword}[1]{\texttt{\color{keyword}{#1}}}
+\providecommand{\method}[1]{\texttt{\color{method}{#1}}}
+\providecommand{\type}[1]{\texttt{\color{type}{#1}}}
+\providecommand{\literal}[1]{\texttt{\color{type}{#1}}}
+\providecommand{\operator}[1]{\texttt{\color{operator}{#1}}}
+\providecommand{\variable}[1]{\texttt{\color{variable}{#1}}}
+%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
