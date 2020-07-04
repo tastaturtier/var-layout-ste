@@ -1,5 +1,5 @@
 
-book.pdf: book.tex var.cls private.sty foreword.tex lastpage.tex img/*.png 
+book.pdf: book.tex var.cls private.sty foreword.tex lastpage.tex img/*.png book/*/*
 	xelatex -no-pdf book.tex; \
 	makeindex book; \
 	makeindex book.nlo -s nomencl.ist -o book.nls; \
