@@ -11,7 +11,7 @@ You need to install the following three fonts in order to use the ``var`` layout
 - [TeX Gyre Heros](http://www.gust.org.pl/projects/e-foundry/tex-gyre/heros/index_html)
 - [TeX Gyre Cursor](http://www.gust.org.pl/projects/e-foundry/tex-gyre/cursor/index_html)
 
-**Before installing a TeX Gyre font, all files from the corresponding Quasi font — if present — should be deleted (including LaTeX support) lest conflicts ensue (consult the relevant documentation).** You can use the PostScript-flavoured OpenType fonts (file extension ``.otf``)
+**Before installing a TeX Gyre font, all files from the corresponding Quasi font — if present — should be deleted (including LaTeX support) lest conflicts ensue (consult the relevant documentation).** You can use the PostScript-flavoured OpenType fonts (file extension ``.otf``): download and install depending on your OS.
 
 The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http://www.gust.org.pl/projects/e-foundry/licenses), which is a free license, legally equivalent to the [LaTeX Project Public License (LPPL)](http://www.latex-project.org/lppl/), version 1.3c or later. The freedoms granted by GFL include the free use of the fonts for whatever purpose you wish. You can also take the fonts and modify them for your own use or redistribution, but to avoid confusion in such a case you are requested to change the name(s) of the font(s) and comprising files—please follow the guidance of the [license](http://www.gust.org.pl/projects/e-foundry/licenses/index_html).
 
