@@ -1,3 +1,5 @@
+all:
+	make clean && make draft.chapter1.pdf && make draft.chapter2.pdf && make && make clean
 
 book.pdf: book.tex var.cls private.sty book/foreword.tex book/ste-ser.tex img/*.png book/*/*
 	xelatex -no-pdf -halt-on-error book.tex && \
