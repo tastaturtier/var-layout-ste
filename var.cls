@@ -91,7 +91,8 @@
 %%
 %% (portable) fonts
 %%
-\RequirePackage{fontspec,xltxtra,xunicode}
+%\RequirePackage{xltxtra}
+\RequirePackage{fontspec,xunicode}
 \defaultfontfeatures{Mapping=tex-text}
 % portable Fonts (http://www.gust.org.pl/projects/e-foundry/tex-gyre/whole)
 \setmainfont[Mapping=tex-text]{TeX Gyre Termes}
