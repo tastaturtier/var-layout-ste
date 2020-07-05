@@ -11,8 +11,10 @@ book.pdf: book.tex var.cls private.sty book/foreword.tex book/ste-ser.tex img/*.
 	xdvipdfmx book.xdv 
 
 draft.chapter1.pdf: draft.chapter1.tex var.cls private.sty img/*.png book/chapter1/*
+	xelatex -no-pdf -halt-on-error draft.chapter1.tex && \
 	xelatex -halt-on-error draft.chapter1.tex 
-draft.chapter2.pdf: draft.chapter1.tex var.cls private.sty img/*.png book/chapter2/*
+draft.chapter2.pdf: draft.chapter2.tex var.cls private.sty img/*.png book/chapter2/*
+	xelatex -no-pdf -halt-on-error draft.chapter2.tex && \
 	xelatex -halt-on-error draft.chapter2.tex 
 
 clean:
