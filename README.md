@@ -60,6 +60,11 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 - auffüllen bis vor ungerade Seite mit leeren Seiten
 - Kapitel (auf ungerader Seite beginnen), arabische Seitenzahlen
 
+## pagination
+- Page numbers start with v (roman 5) (print)/vi (roman 6) (ebook).
+- The first 4/5 pages are provided by the publisher.
+- pages without text are empty (print) resp. are not included (e-book) 
+
 # Environments
 ## ``excursus``
 - for additional topics

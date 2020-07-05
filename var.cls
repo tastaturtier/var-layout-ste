@@ -50,6 +50,7 @@
   \def\var@abbreviationsname{Abkürzungsverzeichnis}%
   \def\var@listingname{Listing}%
   \def\var@creditsname{Bildnachweise}%
+  \def\var@pagename{Seite}%
   \def\var@contentsname{Inhaltsverzeichnis}% not properly working with polyglossia?
 }
 \def\var@captionsbritish{%
@@ -61,6 +62,7 @@
   \def\var@abbreviationsname{Abbreviations}%
   \def\var@listingname{Listing}%
   \def\var@creditsname{Credits}%
+  \def\var@pagename{Page}%
   \def\var@contentsname{Table of Contents}% not properly working with polyglossia?
 }
 
@@ -431,7 +433,6 @@
   \clearpage
   \section*{\var@activitiesname}
   \begin{var@activitieslistbox}
-    %\etoctocstyle[section]{1}{}
     \etocsettocstyle{\subsubsection*{\textsf{\var@activitiesheadingname{}:}}}{}
     \etocsetlevel{activity}{1}
     \etocsetstyle{activity}%
@@ -507,7 +508,11 @@
   \setmainlanguage{\var@lang}
   \captionsetup[lstlisting]{format=listing}
   \pagenumbering{roman}
-  \setcounter{page}{5}
+  \ifthenelse{\boolean{var@print}}{
+    \setcounter{page}{5}
+  }{
+    \setcounter{page}{6}
+  }
   \ifthenelse{\equal{\var@null}{\var@prefacefile}}{
     % no preface
   }{% a prefacefile is provided
@@ -544,7 +549,7 @@
       \sloppy
       \renewcommand*{\do}[1]{
         \refstepcounter{var@irun}
-        \item[S.~\pageref{credit:\thevar@irun}:] #1.
+        \item[\var@pagename{} \pageref{credit:\thevar@irun}:] #1.
       }
       \dolistloop{\var@creditslist}
     \end{description}
