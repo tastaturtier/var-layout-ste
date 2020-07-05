@@ -43,6 +43,11 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
         \def\var@contentsname{Table of Contents}
     }
 ```
+## Option: ``draft=true``
+- if ``draft=true`` then ``ebook=true`` is automatically set (ignoring any manual setting of the ``ebook`` option) 
+- in draft mode preface, table of content, and all appendices (index, abbreviations, credits, and lastpage) are ommitted
+- in draft mode chapter images are omitted
+- the draft option is passed to the underlying book class resulting in markings of bad layouts
 
 ## Option E-Book: ``ebook=true``
 - oneside instead of twoside

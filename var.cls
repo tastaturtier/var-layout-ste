@@ -15,11 +15,7 @@
 %% toolset. Starting with the second number of the book series XeLaTex, GUST's Tex Gyre fonts, and
 %% the var layout class are used for the production.
 %%  
-%% You may use and modify this class for your own book projects as long as it is mentioned: 
-%% "Typesetting with XeLaTeX and VAR layout class (github.io/tastaturtier/var-layout-ste) using 
-%% the Tex Gyre fonts Termes, Heros and Cursor of GUST."
-%% "Textsatz mit XeLaTeX und VAR Layout Klasse (github.io/tastaturtier/var-layout-ste) unter 
-%% Verwendung der Tex Gyre Schriften Termes, Heros und Cursor der GUST."
+%% You may use and modify this class for your own book projects, see LICENSE
 %% 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -73,8 +69,8 @@
 \RequirePackage{ifthen}
 \RequirePackage{etoolbox}
 \RequirePackage{kvoptions}
-\DeclareBoolOption[false]{ebook}
 \DeclareBoolOption[false]{draft}
+\DeclareBoolOption[false]{ebook}
 \DeclareStringOption[german]{lang}
 \newcommand{\var@null}{}
 \DeclareStringOption[\var@null]{prefacefile}
@@ -102,10 +98,17 @@
 %%
 %% load base class
 %%
-\ifthenelse{\boolean{var@print}}{
-  \LoadClass[10pt,twoside]{book}
+\ifthenelse{\boolean{var@draft}}{
+  \def\var@draftoption{,draft}
+  \setboolean{var@print}{false}
+  \setboolean{var@ebook}{true}
 }{
-  \LoadClass[10pt,oneside]{book}
+  \def\var@draftoption{}
+}
+\ifthenelse{\boolean{var@print}}{
+  \LoadClass[10pt,twoside\var@draftoption]{book}
+}{
+  \LoadClass[10pt,oneside\var@draftoption]{book}
 }
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -236,28 +239,39 @@
 %% chapter picture width at ebook \paperwidth for 3mm cropmarks (STE-Vorgabe)
 %%
 \titlespacing*{\chapter}{0pt}{*27.5}{*6}
-\ifthenelse{\boolean{var@print}}{
+\ifthenelse{\boolean{var@draft}}{
   \titleformat{\chapter}[display]
-    {\bfseries\Large}
-    {}
-    {-3ex}
-    {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\dimexpr(\paperwidth + 3mm)]{\var@chapterimg}};
-      \\\filcenter \Huge\sffamily #1
-    }
-    [\vspace{1ex}%
-    \titlerule]%
-}{
-  \titleformat{\chapter}[display]
-    {\bfseries\Large}
-    {}
-    {-3ex}
-    {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\paperwidth]{\var@chapterimg}};
+  {\bfseries\Large}
+  {}
+  {-3ex}
+  {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {};
     \\\filcenter \Huge\sffamily #1
-    }
-    [\vspace{1ex}%
-    \titlerule]%
+  }
+  [\vspace{1ex}%
+  \titlerule]%
+}{
+  \ifthenelse{\boolean{var@print}}{
+    \titleformat{\chapter}[display]
+      {\bfseries\Large}
+      {}
+      {-3ex}
+      {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\dimexpr(\paperwidth + 3mm)]{\var@chapterimg}};
+        \\\filcenter \Huge\sffamily #1
+      }
+      [\vspace{1ex}%
+      \titlerule]%
+  }{
+    \titleformat{\chapter}[display]
+      {\bfseries\Large}
+      {}
+      {-3ex}
+      {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\paperwidth]{\var@chapterimg}};
+      \\\filcenter \Huge\sffamily #1
+      }
+      [\vspace{1ex}%
+      \titlerule]%
+  }
 }
-
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  
 %% foliation, page numbering etc.
@@ -507,58 +521,64 @@
   \def\labelitemiii{\(\circ\)}
   \setmainlanguage{\var@lang}
   \captionsetup[lstlisting]{format=listing}
-  \pagenumbering{roman}
-  \ifthenelse{\boolean{var@print}}{
-    \setcounter{page}{5}
-  }{
-    \setcounter{page}{6}
-  }
-  \ifthenelse{\equal{\var@null}{\var@prefacefile}}{
-    % no preface
-  }{% a prefacefile is provided
-    \input{\var@prefacefile}
-    \newpage
+  \ifthenelse{\not\boolean{var@draft}}{
+    \pagenumbering{roman}
     \ifthenelse{\boolean{var@print}}{
-      \checkoddpage\ifoddpage\else%
-        ~\thispagestyle{empty}\newpage
-      \fi%
+      \setcounter{page}{5} % print (the first 4 pages provided by publisher)
+    }{
+      \setcounter{page}{6} % ebook (titlepage additionally included)
+    }
+    \ifthenelse{\equal{\var@null}{\var@prefacefile}}{
+      % no preface
+    }{% a prefacefile is provided
+      \input{\var@prefacefile}
+      \newpage
+      \ifthenelse{\boolean{var@print}}{
+        \checkoddpage\ifoddpage\else%
+          ~\thispagestyle{empty}\newpage
+        \fi%
+      }{}
+    }
+    \tableofcontents% 
+    \ifthenelse{\boolean{var@print}}{
+      \checkoddpage\ifoddpage%
+        \newpage~\thispagestyle{empty}
+        \fi%
     }{}
+    \newpage\pagenumbering{arabic}
+  }{ % if draft no preface, toc etc.
   }
-  \tableofcontents% 
-  \ifthenelse{\boolean{var@print}}{
-    \checkoddpage\ifoddpage%
-      \newpage~\thispagestyle{empty}
-      \fi%
-  }{}
-  \newpage\pagenumbering{arabic}
 }
 
 \AtEndDocument{
-  \varpart{Anhang}{img/headappendix.png}{ 
-    Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)}
-  \printindex
-  \var@pageBreakForOdd
-  \printnomenclature[2.4cm]
-  \varchapter{\var@creditsname}{}
-  \newcounter{var@irun}
-  \setcounter{var@irun}{0}
-  \ifthenelse{\isundefined\var@creditslist}{}{    
-    \begin{description}
-      \raggedright
-      \footnotesize
-      \sloppy
-      \renewcommand*{\do}[1]{
-        \refstepcounter{var@irun}
-        \item[\var@pagename{} \pageref{credit:\thevar@irun}:] #1.
-      }
-      \dolistloop{\var@creditslist}
-    \end{description}
-  }
-  \ifthenelse{\equal{\var@null}{\var@lastpagefile}}{
-    % no last page
-  }{% the last page has to be an inner page (= even page number). a normale pagebreak is sufficient at e-books
-    \var@pageBreakForEven
-    \input{\var@lastpagefile}
+  \ifthenelse{\not\boolean{var@draft}}{
+    \varpart{Anhang}{img/headappendix.png}{ 
+      Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)}
+    \printindex
+    \var@pageBreakForOdd
+    \printnomenclature[2.4cm]
+    \varchapter{\var@creditsname}{}
+    \newcounter{var@irun}
+    \setcounter{var@irun}{0}
+    \ifthenelse{\isundefined\var@creditslist}{}{    
+      \begin{description}
+        \raggedright
+        \footnotesize
+        \sloppy
+        \renewcommand*{\do}[1]{
+          \refstepcounter{var@irun}
+          \item[\var@pagename{} \pageref{credit:\thevar@irun}:] #1.
+        }
+        \dolistloop{\var@creditslist}
+      \end{description}
+    }
+    \ifthenelse{\equal{\var@null}{\var@lastpagefile}}{
+      % no last page
+    }{% the last page has to be an inner page (= even page number). a normale pagebreak is sufficient at e-books
+      \var@pageBreakForEven
+      \input{\var@lastpagefile}
+    }
+  }{% if draft no index, nomenclature, credits, lastpage etc.
   }
 }
 
