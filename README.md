@@ -11,7 +11,7 @@ LaTeX (XeLaTeX) layout class for Steinbeis Edition series "Verteilte Architektur
 - ``xxx`` will be passed to the _polyglossia_ packageas default/main language, thus in principle all polyglossia languages ca be used
 - additionally some names specific for the ``var`` layout class will be activated. Currently there are only two sets of names: one for ``german`` and one for ``british`` new languages (that are supported by polyglossia) can be added as with ``british``:
 
-```
+```latex
     \def\var@captionsbritish{%
         \def\var@excursusname{Excursus}%
         \def\var@activitiesname{Exercises}%
@@ -49,7 +49,7 @@ LaTeX (XeLaTeX) layout class for Steinbeis Edition series "Verteilte Architektur
 - footnotes, floats, etc. are not allowed
 - text (i.e. the box itself) must fit on one page
   
-```
+```latex
     \begin{excursus}{title info}
         text 
     \end{excursus}
@@ -62,7 +62,7 @@ LaTeX (XeLaTeX) layout class for Steinbeis Edition series "Verteilte Architektur
 - content should be short but may consist of several paragraphs
 - footnotes, floats, etc. allowed
 
-```
+```latex
     \begin{remark}
         text
     \end{remark}
