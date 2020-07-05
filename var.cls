@@ -1,4 +1,3 @@
-% alle internen Variablen und Funktionen mit @ zu lokalen Namen machen
 % todo: "Interface" definieren (CheckCommand's, Environments)
 % todo: falls lastpagefile/prefacefile nicht angegeben werden, weglassen
 % todo: Bildnachweis des Titels als Parameter
@@ -14,16 +13,23 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{var}[2020/07/05 var book series LaTeX class]
 \makeatletter
-\RequirePackage{ifthen}
-\RequirePackage{etoolbox}
-\RequirePackage{kvoptions}
-\DeclareBoolOption[false]{ebook}
-\DeclareBoolOption[false]{draft}
-\DeclareStringOption[german]{lang}
-\DeclareStringOption{prefacefile}
-\DeclareStringOption{lastpagefile}
-\newcommand{\var@titlecredit}{blubber} %TODO
-\ProcessKeyvalOptions*
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% colour model
+%%
+\RequirePackage{xcolor}
+\definecolor{var@colour01}{named}{black} 	           % black
+\definecolor{var@colour02}{named}{white} 	           % white
+\definecolor{var@colour03}{rgb}{0.98, 0.92, 0.84}    % background
+\definecolor{var@colour04}{RGB}{243,102,25} 	       % basecolour 1, ocre
+\definecolor{var@colour05}{named}{yellow} 	         % basecolour 2, yellow
+\definecolor{var@colour06}{named}{orange} 	         % basecolour 3, orange
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% names for captions etc.
+%%
 \def\var@captionsgerman{%
   \def\var@excursusname{Exkurs}%
   \def\var@activitiesname{Praktikum}%
@@ -46,6 +52,21 @@
   \def\var@creditsname{Credits}%
   \def\var@contentsname{Table of Contents}% not properly working with polyglossia?
 }
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% handling of options
+%%
+\RequirePackage{ifthen}
+\RequirePackage{etoolbox}
+\RequirePackage{kvoptions}
+\DeclareBoolOption[false]{ebook}
+\DeclareBoolOption[false]{draft}
+\DeclareStringOption[german]{lang}
+\DeclareStringOption{prefacefile}
+\DeclareStringOption{lastpagefile}
+\newcommand{\var@titlecredit}{blubber} %TODO
+\ProcessKeyvalOptions*
 \csname var@captions\var@lang \endcsname
 
 % "print" complementary to "ebook"
@@ -56,13 +77,29 @@
   \setboolean{var@print}{true}
 }
 
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% load base class
+%%
 \ifthenelse{\boolean{var@print}}{
   \LoadClass[10pt,twoside]{book}
 }{
   \LoadClass[10pt,oneside]{book}
 }
 
-\RequirePackage{xunicode}
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% (portable) fonts
+%%
+\RequirePackage{fontspec,xltxtra,xunicode}
+\defaultfontfeatures{Mapping=tex-text}
+% portable Fonts (http://www.gust.org.pl/projects/e-foundry/tex-gyre/whole)
+\setmainfont[Mapping=tex-text]{TeX Gyre Termes}
+\setsansfont[Mapping=tex-text]{TeX Gyre Heros}
+\setmonofont{TeX Gyre Cursor}
+
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% href, url, etc. with bookmark and URL-hyphenation/breaking not only at _
@@ -71,17 +108,13 @@
 \usepackage[linktoc=all,unicode=true,bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=0,breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]{hyperref}
 \def\UrlBreaks{\do\/\do-\do\_} % breaks URLs also at /, - and _
 
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% layout
+%%
 \RequirePackage{listings}
-
 \RequirePackage{fix-cm}
-
 \RequirePackage[export]{adjustbox}
-\RequirePackage{fontspec,xltxtra,xunicode}
-\defaultfontfeatures{Mapping=tex-text}
-% portable Fonts (http://www.gust.org.pl/projects/e-foundry/tex-gyre/whole)
-\setmainfont[Mapping=tex-text]{TeX Gyre Termes}
-\setsansfont[Mapping=tex-text]{TeX Gyre Heros}
-\setmonofont{TeX Gyre Cursor}
 
 % captions right ragged, hanging, etc.
 \RequirePackage{ragged2e}
@@ -122,14 +155,13 @@
   \RequirePackage[cam,width=163truemm,height=233truemm,center]{crop}
 }{}  
 
-\newcommand{\kapitelbild}{}
-\newcommand{\kapitelbildsrc}{}
+\newcommand{\var@chapterimg}{}
+\newcommand{\var@chapterimgcredit}{}
 
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
 \RequirePackage[explicit]{titlesec}
 
-\RequirePackage{color}
 \RequirePackage{float}
 \RequirePackage{graphicx}
 
@@ -191,7 +223,7 @@
     {\bfseries\Large}
     {}
     {-3ex}
-    {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\dimexpr(\paperwidth + 3mm)]{\kapitelbild}};
+    {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\dimexpr(\paperwidth + 3mm)]{\var@chapterimg}};
       \\\filcenter \Huge\sffamily #1
     }
     [\vspace{1ex}%
@@ -201,7 +233,7 @@
     {\bfseries\Large}
     {}
     {-3ex}
-    {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\paperwidth]{\kapitelbild}};
+    {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\paperwidth]{\var@chapterimg}};
     \\\filcenter \Huge\sffamily #1
     }
     [\vspace{1ex}%
@@ -216,7 +248,7 @@
 \RequirePackage{calc}
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
-\newcommand{\ccnote}{}
+\newcommand{\var@howtocite}{}
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \fancyhf{} % clear the headers
 \ifthenelse{\boolean{var@print}}{
@@ -228,8 +260,8 @@
   \fancypagestyle{plain}{
     \renewcommand{\headrulewidth}{0pt}
     \fancyhf{}
-    \fancyfoot[EL]{\thepage\hfill\parbox{10cm}{\footnotesize\textsf{\ccnote}}}
-    \fancyfoot[OR]{\parbox{10cm}{\footnotesize\textsf{\ccnote}}\hfill\thepage}
+    \fancyfoot[EL]{\thepage\hfill\parbox{10cm}{\footnotesize\textsf{\var@howtocite}}}
+    \fancyfoot[OR]{\parbox{10cm}{\footnotesize\textsf{\var@howtocite}}\hfill\thepage}
   }
   \newcommand{\var@pageBreakForOdd}{
     \newpage\checkoddpage\ifoddpage%
@@ -250,7 +282,7 @@
   \fancypagestyle{plain}{
     \renewcommand{\headrulewidth}{0pt}
     \fancyhf{}
-    \fancyfoot[OR]{\parbox{10cm}{\footnotesize\textsf{\ccnote}}\hfill\thepage}
+    \fancyfoot[OR]{\parbox{10cm}{\footnotesize\textsf{\var@howtocite}}\hfill\thepage}
   }    
   \newcommand{\var@pageBreakForOdd}{\newpage}
   \newcommand{\var@pageBreakForEven}{\var@pageBreakForOdd}
@@ -264,7 +296,7 @@
 \RequirePackage{imakeidx}
 \makeindex
 \indexsetup{level=\chapter,toclevel=chapter} 
-\indexprologue{\bildnachweis{\kapitelbildsrc}\var@prepareactivitiessection{Index}}
+\indexprologue{\varcredit{\var@chapterimgcredit}\var@prepareactivitiessection{Index}}
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -293,16 +325,77 @@
 \RequirePackage{float}
 \newenvironment{excursus}[1]{
   \begin{figure}
-    \begin{tcolorbox}[colback=yellow!5!white,colframe=orange!75!black,coltitle=white,fonttitle=\sffamily,title={\var@excursusname{}: #1}]
+    \begin{tcolorbox}[colback=var@colour05!5!var@colour02,colframe=var@colour06!75!var@colour01,coltitle=var@colour02,fonttitle=\sffamily,title={\var@excursusname{}: #1}]
 }{
     \end{tcolorbox}
   \end{figure}}
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
+%% remark environment
+%%
+\RequirePackage[framemethod=default]{mdframed} 
+
+\newmdenv[skipabove=7pt,
+          skipbelow=7pt,
+          backgroundcolor=var@colour01!5,
+          linecolor=var@colour04,
+          innerleftmargin=5pt,
+          innerrightmargin=5pt,
+          innertopmargin=5pt,
+          leftmargin=0cm,
+          rightmargin=0cm,
+          innerbottommargin=5pt]{var@remarkbox}
+\newenvironment{remark}{
+  \par\vspace{1ex}%
+  \begin{var@remarkbox}%
+    \marginnote{
+      \begin{tikzpicture}
+        \node[draw=var@colour06,line width=1pt,circle,fill=var@colour06,font=\sffamily\bfseries,inner sep=3pt,outer sep=0pt] at (0pt,0pt){\textcolor{var@colour02}{\Huge{!}}};
+      \end{tikzpicture}} 
+    \advance\baselineskip -1pt
+}{
+  \end{var@remarkbox}%
+  \vskip1ex
+}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
 %% Activity Environment ("Aktivitätsschritt") mit Verzeichnisliste in jedem Kapitel
 %% \begin{activity}{Ziel}{optional in Klammern hinter Aktivitätsschritt x.xx}
 %%
+\newmdenv[skipabove=0pt,
+          skipbelow=2ex,
+          rightline=true,
+          leftline=true,
+          topline=true,
+          bottomline=true,
+          backgroundcolor=var@colour04!10,
+          linecolor=var@colour04,
+          innerleftmargin=5pt,
+          innerrightmargin=5pt,
+          innertopmargin=0pt,
+          innerbottommargin=5pt,
+          leftmargin=1em,
+          rightmargin=1em,
+          linewidth=0.4pt]{var@activitieslistbox}	
+
+\newmdenv[skipabove=7pt,
+          skipbelow=7pt,
+          rightline=false,
+          leftline=true,
+          topline=false,
+          bottomline=false,
+          backgroundcolor=var@colour04!10,
+          linecolor=var@colour04,
+          innerleftmargin=5pt,
+          innerrightmargin=5pt,
+          innertopmargin=5pt,
+          innerbottommargin=5pt,
+          leftmargin=0cm,
+          rightmargin=0cm,
+          linewidth=4pt]{var@activitybox}	
+
 \RequirePackage[section]{placeins}
 \RequirePackage{etoc}
 \RequirePackage{titlesec}
@@ -313,8 +406,8 @@
 \newenvironment{activity}[2]{
   \refstepcounter{var@activitycounter}
   \etoctoccontentsline{activity}{\thechapter{}.\thevar@activitycounter{} \@ifnotempty{#2}{#2: }#1}
-  \par\medskip\begin{activitybox}\noindent\sffamily\textbf{\var@activityname~\thechapter.\thevar@activitycounter{}\@ifnotempty{#2}{ (#2)}:}\\ 
-  {\bfseries \var@objectivename:} #1\\\rmfamily}{\end{activitybox}\medskip}
+  \par\medskip\begin{var@activitybox}\noindent\sffamily\textbf{\var@activityname~\thechapter.\thevar@activitycounter{}\@ifnotempty{#2}{ (#2)}:}\\ 
+  {\bfseries \var@objectivename:} #1\\\rmfamily}{\end{var@activitybox}\medskip}
 \newcommand{\lastchaptername}{}
 \newcommand{\var@prepareactivitiessection}[1]{
   \renewcommand{\lastchaptername}{#1}
@@ -323,7 +416,7 @@
 \newcommand{\activitiessection}{
   \clearpage
   \section*{\var@activitiesname}
-  \begin{activityListBox}
+  \begin{var@activitieslistbox}
     %\etoctocstyle[section]{1}{}
     \etocsettocstyle{\subsubsection*{\textsf{\var@activitiesheadingname{}:}}}{}
     \etocsetlevel{activity}{1}
@@ -335,75 +428,12 @@
     \etocsetlevel{section}{2} 
     \setcounter{tocdepth}{1}%
     \tableofcontents\ref{toc:{\lastchaptername}}
-  \end{activityListBox}
+  \end{var@activitieslistbox}
 }
 %%
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
   
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% Remark-Box
-%% + activityListBox box
-%%
-\RequirePackage[framemethod=default]{mdframed} 
-\definecolor{ocre}{RGB}{243,102,25} 	  
-\newmdenv[skipabove=7pt,
-          skipbelow=7pt,
-          backgroundcolor=black!5,
-          linecolor=ocre,
-          innerleftmargin=5pt,
-          innerrightmargin=5pt,
-          innertopmargin=5pt,
-          leftmargin=0cm,
-          rightmargin=0cm,
-          innerbottommargin=5pt]{remBox}
-\newenvironment{remark}{
-  \par\vspace{1ex}%
-  \begin{remBox}%
-    \marginnote{
-      \begin{tikzpicture}
-        \node[draw=orange,line width=1pt,circle,fill=orange,font=\sffamily\bfseries,inner sep=3pt,outer sep=0pt] at (0pt,0pt){\textcolor{white}{\Huge{!}}};
-      \end{tikzpicture}} 
-    \advance\baselineskip -1pt
-}{
-  \end{remBox}%
-  \vskip1ex
-}
-\newmdenv[skipabove=0pt,
-          skipbelow=2ex,
-          rightline=true,
-          leftline=true,
-          topline=true,
-          bottomline=true,
-          backgroundcolor=ocre!10,
-          linecolor=ocre,
-          innerleftmargin=5pt,
-          innerrightmargin=5pt,
-          innertopmargin=0pt,
-          innerbottommargin=5pt,
-          leftmargin=1em,
-          rightmargin=1em,
-          linewidth=0.4pt]{activityListBox}	
-
-\newmdenv[skipabove=7pt,
-          skipbelow=7pt,
-          rightline=false,
-          leftline=true,
-          topline=false,
-          bottomline=false,
-          backgroundcolor=ocre!10,
-          linecolor=ocre,
-          innerleftmargin=5pt,
-          innerrightmargin=5pt,
-          innertopmargin=5pt,
-          innerbottommargin=5pt,
-          leftmargin=0cm,
-          rightmargin=0cm,
-          linewidth=4pt]{activitybox}	
-%%
-%% %%%%%%%%%%%%%%%%
 
 
 %% %%%%%%%%%%%%%%%
@@ -412,9 +442,8 @@
 %% 
 \renewcommand{\lstlistingname}{\var@listingname}
 \lstdefinestyle{nonumbers}{numbers=none}
-\definecolor{antiquewhite}{rgb}{0.98, 0.92, 0.84}
 \lstset{
-    backgroundcolor={\color{antiquewhite}},
+    backgroundcolor={\color{var@colour03}},
     frame=single,
     language=Java,
     numbers=left,
@@ -433,30 +462,29 @@
 
 
 \newcommand{\varpart}[3]{%
-  \renewcommand{\kapitelbild}{}
-  \renewcommand{\kapitelbildsrc}{}
-  \renewcommand{\ccnote}{}
+  \renewcommand{\var@chapterimg}{}
+  \renewcommand{\var@chapterimgcredit}{}
+  \renewcommand{\var@howtocite}{}
   \ifthenelse{\equal{\thepage}{1}}{}{\var@pageBreakForOdd}
   \part{#1}
-  \renewcommand{\kapitelbild}{#2}
-  \renewcommand{\kapitelbildsrc}{#3}
+  \renewcommand{\var@chapterimg}{#2}
+  \renewcommand{\var@chapterimgcredit}{#3}
 }
 
 \newcommand{\varchapter}[2]{%
-  \renewcommand{\ccnote}{#2}
+  \renewcommand{\var@howtocite}{#2}
   \var@pageBreakForOdd
-  \chapter{#1}\bildnachweis{\kapitelbildsrc} 
+  \chapter{#1}\varcredit{\var@chapterimgcredit} 
   \var@prepareactivitiessection{chapt\thechapter}
 }
 
 
-\newcounter{bildnachweisnummer}
-\setcounter{bildnachweisnummer}{0}
-\newcommand{\tempvarforparameter}{}
-\newcommand{\bildnachweis}[1]{
-  \refstepcounter{bildnachweisnummer}
-  \label{bildnachweis:\thebildnachweisnummer}
-  \write\@auxout{\noexpand\listgadd{\noexpand\bildnachweisliste}{#1}}
+\newcounter{var@creditcounter}
+\setcounter{var@creditcounter}{0}
+\newcommand{\varcredit}[1]{
+  \refstepcounter{var@creditcounter}
+  \label{credit:\thevar@creditcounter}
+  \write\@auxout{\noexpand\listgadd{\noexpand\var@creditslist}{#1}}
 }
 
 \AtBeginDocument{
@@ -490,16 +518,16 @@
   \varchapter{\var@creditsname}{}
   \newcounter{var@irun}
   \setcounter{var@irun}{0}
-  \ifthenelse{\isundefined\bildnachweisliste}{}{    
+  \ifthenelse{\isundefined\var@creditslist}{}{    
     \begin{description}
       \raggedright
       \footnotesize
       \sloppy
       \renewcommand*{\do}[1]{
         \refstepcounter{var@irun}
-        \item[S.~\pageref{bildnachweis:\thevar@irun}:] #1.
+        \item[S.~\pageref{credit:\thevar@irun}:] #1.
       }
-      \dolistloop{\bildnachweisliste}
+      \dolistloop{\var@creditslist}
     \end{description}
   }
  % die letzte Seite muss bei Print innen (=gerade) sein. bei E-Book reicht ein normaler Umbruch

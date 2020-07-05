@@ -69,7 +69,7 @@ LaTeX (XeLaTeX) layout class for Steinbeis Edition series "Verteilte Architektur
 ```
 
 ## ``activity``
-
+- must be after ``varactivitiessection``
 
 # Macros/Commands
 
@@ -77,6 +77,10 @@ LaTeX (XeLaTeX) layout class for Steinbeis Edition series "Verteilte Architektur
 
 ## ``varchapter``
 
-## ``varactivitysection``
+## ``varactivitiessection``
+- 0 or 1 per varchapter
+- ``activity``-environments (at least one) must follow
+
+## ``varcredit``
 
 
