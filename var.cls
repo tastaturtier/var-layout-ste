@@ -91,7 +91,6 @@
 %%
 %% (portable) fonts
 %%
-%\RequirePackage{xltxtra}
 \RequirePackage{fontspec,xunicode}
 \defaultfontfeatures{Mapping=tex-text}
 % portable Fonts (http://www.gust.org.pl/projects/e-foundry/tex-gyre/whole)
@@ -104,7 +103,7 @@
 %% href, url, etc. with bookmark and URL-hyphenation/breaking not only at _
 %%
 \PassOptionsToPackage{hyphens}{url}
-\usepackage[linktoc=all,unicode=true,bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=0,breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]{hyperref}
+\RequirePackage[linktoc=all,unicode=true,bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=0,breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]{hyperref}
 \def\UrlBreaks{\do\/\do-\do\_} % breaks URLs also at /, - and _
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -213,8 +212,8 @@
   
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % chapter headings
-% chapter picture width at print \paperwidth + 3mm for 3mm side cutting (STE-Vorgabe)
-% chapter picture width at ebook \paperwidth for 3mm side cutting (STE-Vorgabe)
+% chapter picture width at print \paperwidth + 3mm for 3mm cropmarks (STE-Vorgabe)
+% chapter picture width at ebook \paperwidth for 3mm cropmarks (STE-Vorgabe)
 %
 \titlespacing*{\chapter}{0pt}{*27.5}{*6}
 \ifthenelse{\boolean{var@print}}{
@@ -321,7 +320,6 @@
 \RequirePackage{marginnote}
 \let\marginpar\marginnote
 \RequirePackage{tcolorbox}
-\RequirePackage{float}
 \newenvironment{excursus}[1]{
   \begin{figure}
     \begin{tcolorbox}[colback=var@colour05!5!var@colour02,colframe=var@colour06!75!var@colour01,coltitle=var@colour02,fonttitle=\sffamily,title={\var@excursusname{}: #1}]
@@ -398,7 +396,14 @@
 \RequirePackage[section]{placeins}
 \RequirePackage{etoc}
 \RequirePackage{titlesec}
-\RequirePackage{amsgen} % (\@ifnotempty)
+
+% from the amsgen package (not clear if available outside miktex)
+% http://www.texdoc.net/texmf-dist/doc/latex/amsmath/amsgen.pdf
+\long\def\@ifempty#1{\@xifempty#1@@..\@nil}
+\long\def\@xifempty#1#2@#3#4#5\@nil{%
+  \ifx#3#4\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
+\long\def\@ifnotempty#1{\@ifempty{#1}{}}
+
 \etocarticlestyle 
 \newcounter{var@activitycounter}[chapter]
 \etocsetlevel{activity}{6}
@@ -453,7 +458,6 @@
     showstringspaces=false,
     tabsize=4
 }
-\RequirePackage{caption}
 \DeclareCaptionFormat{listing}{\raggedright{}#1#2#3}
 %%
 %% %%%%%%%%%%%%%%%%

@@ -3,6 +3,10 @@ LaTeX2e (XeLaTeX) layout class for Steinbeis Edition series "[Verteilte Architek
 
 For use with XeLaTeX only (uses Unicode, [``fontspec``](https://www.ctan.org/pkg/fontspec) for font selection and [``polyglossia``](https://www.ctan.org/pkg/polyglossia) for internationalization).
 
+Works with [MiKTeX](https://miktex.org/) (tested) and [TeX Live](http://tug.org/texlive/).
+
+Dependencies: XeLaTeX (XeTeX 4.0 + LaTeX2e), [some CTAN-packages}(dependencies.md), and fonts...
+
 # Fonts
 This layout class uses fonts from the [TeX Gyre (TG) Collection of Fonts](http://www.gust.org.pl/projects/e-foundry/tex-gyre). These fonts support e.g. ligatures, alternative glyphs, and swashes. They can be used as Unicode OpenType fonts through [``fontspec``](https://www.ctan.org/pkg/fontspec).
 
@@ -42,7 +46,7 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 ## Option E-Book: ``ebook=true``
 - oneside instead of twoside
 - margin always on the right
-- no side cuttings
+- no cropmarks
 - chapters, parts, etc. do not start on pages with odd numbers
 - no need to fill up with empty pages to meet the pages with odd numbers
 

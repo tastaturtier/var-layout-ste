@@ -46,8 +46,27 @@ Hier beginnt das Praktikum mit \textit{activity}-Umgebungen\dots
     \lipsum[20]
 \end{activity}
 
-\lipsum[20]
+normally do not use floats for listings:
+\begin{lstlisting}%default language is Java
+import java.util.*;
+public class Test extends Toast implements Brot {
+    // ...
+}
+\end{lstlisting}
 
-\begin{activity}{Aktivität\_c}{}
-    \lipsum[22]
-\end{activity}
+Listings can have captions, and can be references (e.\,g.~Listing~\ref{listing:htmllisting}).
+\begin{lstlisting}[language=HTML, caption={sourcecode in different languages possible, can have a caption}, label=listing:htmllisting]
+<html>
+  <head><title>abc def</title></head>
+  <body>
+    <ul>
+      <li>...<ul><li>...</li></ul></li>
+    </ul>
+  </body>
+</html>
+\end{lstlisting}
+
+short listings (max 3 lines):
+\begin{lstlisting}[style=nonumbers]
+$ /bin/rm -r /
+\end{lstlisting}
