@@ -1,56 +1,73 @@
+% todo: "Interface" definieren (CheckCommand's, Environments)
+% todo: falls lastpagefile/prefacefile nicht angegeben werden, weglassen
+% alle internen Variablen und Funktionen mit @ zu lokalen Namen machen
 % todo: Bildnachweis des Titels als Parameter
-% todo: Bild und Bildquelle für Anhang-KapitelIllu
+% todo: Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
 % andere Startseitenzahl bei ebook
 % todo: lst-Konfiguration nach private.sty verschieben
-% todo: widefigure etc. prüfen und ebook berücksichtigen
-% todo: "Interface" definieren (CheckCommand's, Environments)
-% todo: Sprachoption für class, \setXYZ statt \renewcommand für Texte => keyval's
-% todo: Dateien für vorwort und letzte Seite der Klasse als Parameter übergeben
 % todo: Anhang-Bild, part-Name, Bildnachweise, S. bei Bildnachweise als Parameter übergeben
 % issue: Erklärung zu fehlenden ersten vier Seiten
 % issue: Erklärung xetex + latex und fontspec
-% feature: Makefile und Projekt-Layout zum Clonen
 % modus draft (draft für book + ebook + keine Kapitelgrafik), draft.tex automatisch aus Makefile generieren (bindet nur chapter ein)
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{var}[2020/06/29 var book series LaTeX class]
+\ProvidesClass{var}[2020/07/05 var book series LaTeX class]
+\makeatletter
 \RequirePackage{ifthen}
+\RequirePackage{etoolbox}
+\RequirePackage{kvoptions}
+\DeclareBoolOption[false]{ebook}
+\DeclareBoolOption[false]{draft}
+\DeclareStringOption[german]{lang}
+\DeclareStringOption{prefacefile}
+\DeclareStringOption{lastpagefile}
+\newcommand{\var@titlecredit}{blubber} %TODO
+\ProcessKeyvalOptions*
+\def\var@captionsgerman{%
+  \def\var@excursusname{Exkurs}%
+  \def\var@activitiesname{Praktikum}%
+  \def\var@activityname{Aktivitätsschritt}%
+  \def\var@objectivename{Ziel}%
+  \def\var@activitiesheadingname{Aktivitätsschritte}%
+  \def\var@abbreviationsname{Abkürzungsverzeichnis}%
+  \def\var@listingname{Listing}%
+  \def\var@creditsname{Bildnachweise}%
+  \def\var@contentsname{Inhaltsverzeichnis}% not properly working with polyglossia?
+}
+\def\var@captionsbritish{%
+  \def\var@excursusname{Excursus}%
+  \def\var@activitiesname{Exercises}%
+  \def\var@activityname{Activity Step}%
+  \def\var@objectivename{Objective}%
+  \def\var@activitiesheadingname{Activity Steps}%
+  \def\var@abbreviationsname{Abbreviations}%
+  \def\var@listingname{Listing}%
+  \def\var@creditsname{Credits}%
+  \def\var@contentsname{Table of Contents}% not properly working with polyglossia?
+}
+\csname var@captions\var@lang \endcsname
 
-\newboolean{print}
-\setboolean{print}{true}
-\DeclareOption{ebook}{\setboolean{print}{false}}
-\DeclareOption*{\PackageWarning{var}{Unknown ‘\CurrentOption’}}
-\ProcessOptions\relax
-\ifthenelse{\boolean{print}}{
+% "print" complementary to "ebook"
+\newboolean{var@print} 
+\ifthenelse{\boolean{var@ebook}}{
+  \setboolean{var@print}{false}
+}{
+  \setboolean{var@print}{true}
+}
+
+\ifthenelse{\boolean{var@print}}{
   \LoadClass[10pt,twoside]{book}
 }{
   \LoadClass[10pt,oneside]{book}
 }
 
-\RequirePackage{polyglossia}
-\setdefaultlanguage[babelshorthands=true]{german}
-    
-
-\newcommand{\exkursname}{Exkurs}
-\newcommand{\activitiesname}{Praktikum}
-\newcommand{\activityname}{Aktivitätsschritt}
-\newcommand{\objectivename}{Ziel}
-\newcommand{\activitiestocheading}{Aktivitätsschritte}
-\newcommand{\varnomname}{Abkürzungsverzeichnis}
-\newcommand{\varlistingname}{Listing}
-\newcommand{\varbildnachweisename}{Bildnachweise}
-\renewcommand{\contentsname}{Inhaltsverzeichnis}
-\newcommand{\prefacefile}{foreword}
-\newcommand{\lastpagefile}{lastpage}
-\newcommand{\titelbildnachweis}{blubber}
-
 \RequirePackage{xunicode}
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% href, url, etc. mit Bookmark und URL-Umbrüche nicht nur bei _
+%% href, url, etc. with bookmark and URL-hyphenation/breaking not only at _
 %%
 \PassOptionsToPackage{hyphens}{url}
 \usepackage[linktoc=all,unicode=true,bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=0,breaklinks=true,pdfborder={0 0 0},backref=false,colorlinks=false]{hyperref}
-\def\UrlBreaks{\do\/\do-\do\_} % bricht url's auch bei /, - und _
+\def\UrlBreaks{\do\/\do-\do\_} % breaks URLs also at /, - and _
 
 \RequirePackage{listings}
 
@@ -64,11 +81,11 @@
 \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
 \setmonofont{TeX Gyre Cursor}
 
-% Bildunterschriften linksbündig hängend, etc.
+% captions right ragged, hanging, etc.
 \RequirePackage{ragged2e}
 \RequirePackage[font=small,labelfont=bf,labelsep=colon,format=plain,justification=RaggedRight,singlelinecheck=false]{caption}
 
-% Abschnittsüberschriften (unter chapter) alle linksbündig, Flattersatz:
+% section headings (below chapter) all right ragged:
 \RequirePackage{sectsty}
 \sectionfont{\raggedright}
 \subsectionfont{\raggedright}
@@ -76,8 +93,8 @@
 \paragraphfont{\raggedright}
 
 % Layout:
-\RequirePackage[all]{nowidow}          % keine Hurenkinder und Schusterjungen nach Möglichkeit
-\raggedbottom                          % "Flattersatz" zum Seitenende
+\RequirePackage[all]{nowidow}
+\raggedbottom
 
 \RequirePackage[absolute]{textpos} 
 
@@ -99,7 +116,7 @@
 \geometry{tmargin=2.4cm, bmargin=2.3cm, textwidth=12cm, marginparwidth=5em, marginparsep=1em}
 
 % Anschnitt von 3mm bei Print:
-\ifthenelse{\boolean{print}}{
+\ifthenelse{\boolean{var@print}}{
   \RequirePackage[cam,width=163truemm,height=233truemm,center]{crop}
 }{}  
 
@@ -113,16 +130,10 @@
 \RequirePackage{color}
 \RequirePackage{float}
 \RequirePackage{graphicx}
-%\RequirePackage{multirow}
 
 \RequirePackage{tikz}
-%\usetikzlibrary{shapes}
-%\usetikzlibrary{shadings}
 \usetikzlibrary{positioning}
-%\usetikzlibrary{fit}
 \usetikzlibrary{calc}
-%\usetikzlibrary{arrows}
-%\usetikzlibrary{arrows.meta}
 
 \RequirePackage{setspace}
 \onehalfspacing
@@ -168,12 +179,12 @@
   \edef\marginnotetextwidth{\the\textwidth}}
   
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Kapitelüberschrift
-% Bild ist bei Print \paperwidth + 3mm breit für 3mm Anschnitt (STE-Vorgabe)
-% Bild ist bei E-Book \paperwidth breit
+% chapter headings
+% chapter picture width at print \paperwidth + 3mm for 3mm side cutting (STE-Vorgabe)
+% chapter picture width at ebook \paperwidth for 3mm side cutting (STE-Vorgabe)
 %
 \titlespacing*{\chapter}{0pt}{*27.5}{*6}
-\ifthenelse{\boolean{print}}{
+\ifthenelse{\boolean{var@print}}{
   \titleformat{\chapter}[display]
     {\bfseries\Large}
     {}
@@ -198,17 +209,15 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Paginierung etc.
+% foliation, page numbering etc.
 
-%\RequirePackage{eso-pic} % benötigt??
-\RequirePackage{ifthen}
-\RequirePackage{graphicx,calc}
+\RequirePackage{calc}
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
 \newcommand{\ccnote}{}
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \fancyhf{} % clear the headers
-\ifthenelse{\boolean{print}}{
+\ifthenelse{\boolean{var@print}}{
   \fancyhead[EL,OR]{\sffamily\itshape
     \ifnum\value{chapter}>0 \thechapter. \fi
     \leftmark}
@@ -264,7 +273,7 @@
 \RequirePackage{nomencl}
 
 \renewcommand{\thenomenclature}{
-  \varchapter{\varnomname}{}
+  \varchapter{\var@abbreviationsname}{}
   \nompreamble
   \list{}{
   \labelwidth\nom@tempdim
@@ -292,7 +301,7 @@
     %  \begin{tikzpicture}
     %    \node[draw=orange,line width=1pt,circle,fill=orange,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (0pt,0pt){\textcolor{white}{\Large{Ex.}}};
     %  \end{tikzpicture}}
-    \begin{tcolorbox}[colback=yellow!5!white,colframe=orange!75!black,coltitle=white,fonttitle=\sffamily,title={\exkursname{}: #1}]
+    \begin{tcolorbox}[colback=yellow!5!white,colframe=orange!75!black,coltitle=white,fonttitle=\sffamily,title={\var@excursusname{}: #1}]
 }{
     \end{tcolorbox}
   \end{figure}}
@@ -313,13 +322,12 @@
 \etocarticlestyle % vielleicht auch nicht (Positionierung von Fließobjekten besser, dafür Chapterhead mit Grafik
 \newcounter{activ}[chapter]
 \etocsetlevel{activity}{6}
-\makeatletter
+
 \newenvironment{activity}[2]{
   \refstepcounter{activ}
   \etoctoccontentsline{activity}{\thechapter{}.\theactiv{} \@ifnotempty{#2}{#2: }#1}
-  \par\medskip\begin{activitybox}\noindent\sffamily\textbf{\activityname~\thechapter.\theactiv{}\@ifnotempty{#2}{ (#2)}:}\\ 
-  {\bfseries \objectivename:} #1\\\rmfamily}{\end{activitybox}\medskip}
-\makeatother
+  \par\medskip\begin{activitybox}\noindent\sffamily\textbf{\var@activityname~\thechapter.\theactiv{}\@ifnotempty{#2}{ (#2)}:}\\ 
+  {\bfseries \var@objectivename:} #1\\\rmfamily}{\end{activitybox}\medskip}
 \newcommand{\lastchaptername}{}
 \newcommand{\prepareactivitiessection}[1]{
   \renewcommand{\lastchaptername}{#1}
@@ -327,10 +335,10 @@
 }
 \newcommand{\activitiessection}{
   \clearpage
-  \section*{\activitiesname}
+  \section*{\var@activitiesname}
   \begin{activityListBox}
     %\etoctocstyle[section]{1}{}
-    \etocsettocstyle{\subsubsection*{\textsf{\activitiestocheading{}:}}}{}
+    \etocsettocstyle{\subsubsection*{\textsf{\var@activitiesheadingname{}:}}}{}
     \etocsetlevel{activity}{1}
     \etocsetstyle{activity}%
     {\begin{small}\sffamily}%
@@ -415,7 +423,7 @@
 %% 
 %%  lstlisting 
 %% 
-\renewcommand{\lstlistingname}{\varlistingname}
+\renewcommand{\lstlistingname}{\var@listingname}
 \lstdefinestyle{nonumbers}{numbers=none}
 \definecolor{antiquewhite}{rgb}{0.98, 0.92, 0.84}
 \lstset{
@@ -435,7 +443,7 @@
 %%
 %% %%%%%%%%%%%%%%%%
 
-\RequirePackage{etoolbox}
+
 
 \newcommand{\varpart}[3]{%
   \renewcommand{\kapitelbild}{}
@@ -459,28 +467,27 @@
 \newcounter{bildnachweisnummer}
 \setcounter{bildnachweisnummer}{0}
 \newcommand{\tempvarforparameter}{}
-\makeatletter
 \newcommand{\bildnachweis}[1]{
   \refstepcounter{bildnachweisnummer}
   \label{bildnachweis:\thebildnachweisnummer}
   \write\@auxout{\noexpand\listgadd{\noexpand\bildnachweisliste}{#1}}
 }
-\makeatother
 
 \AtBeginDocument{
   \def\labelitemiii{\(\circ\)}
+  \setmainlanguage{\var@lang}
   \captionsetup[lstlisting]{format=listing}
   \pagenumbering{roman}
   \setcounter{page}{5}
-  \input{\prefacefile}
+  \input{\var@prefacefile}
   \newpage
-  \ifthenelse{\boolean{print}}{
+  \ifthenelse{\boolean{var@print}}{
     \checkoddpage\ifoddpage\else%
       ~\thispagestyle{empty}\newpage
     \fi%
   }{}
   \tableofcontents% 
-  \ifthenelse{\boolean{print}}{
+  \ifthenelse{\boolean{var@print}}{
     \checkoddpage\ifoddpage%
       \newpage~\thispagestyle{empty}
       \fi%
@@ -494,22 +501,29 @@
   \printindex
   \pageBreakForOdd
   \printnomenclature[2.4cm]
-  \varchapter{\varbildnachweisename}{}
-  \newcounter{varirun}
-  \setcounter{varirun}{0}
+  \varchapter{\var@creditsname}{}
+  \newcounter{var@irun}
+  \setcounter{var@irun}{0}
   \ifthenelse{\isundefined\bildnachweisliste}{}{    
     \begin{description}
       \raggedright
       \footnotesize
       \sloppy
       \renewcommand*{\do}[1]{
-        \refstepcounter{varirun}
-        \item[S.~\pageref{bildnachweis:\thevarirun}:] #1.
+        \refstepcounter{var@irun}
+        \item[S.~\pageref{bildnachweis:\thevar@irun}:] #1.
       }
       \dolistloop{\bildnachweisliste}
     \end{description}
   }
  % die letzte Seite muss bei Print innen (=gerade) sein. bei E-Book reicht ein normaler Umbruch
   \pageBreakForEven
-  \input{\lastpagefile}
+  \input{\var@lastpagefile}
 }
+
+% from the ployglossia doc: "In general, it is advisable to activate the languages after all packages have been loaded."
+\RequirePackage{polyglossia}
+\setmainlanguage{\var@lang}
+\renewcommand\contentsname{\var@contentsname}
+
+\makeatother
