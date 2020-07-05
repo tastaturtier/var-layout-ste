@@ -1,23 +1,37 @@
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  
-%% var class for xelatex2e
+%% var.cls 
+%% Copyright 2020 Sandro Leuchter (sandro.leuchter@dama.io)
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Sandro Leuchter.
+%
+% This work consists of the files var.cls
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  
+% var class for xelatex2e, https://github.com/tastaturtier/var-layout-ste
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{var}[2020/07/05 VAR book series LaTeX class]
-%% 
-%% author: Sandro Leuchter (sandro.leuchter@dama.io), github.com: tastaturtier 
-%%
-%% This layout class has been developed for my series of books called "Verteilte Architekturen" (VAR)
-%% published by Steinbeis Edition in Stuttgart, Germany (https://verteiltearchitekturen.de/)
-%%
-%% The editorial office of the publisher helped a lot with layout, typography, and book styling
-%% during copy editing cycles of the first number of the series. The grown latex code was then 
-%% revised and rewritten as a layout bundled together with a scaffolding project layout and build 
-%% toolset. Starting with the second number of the book series XeLaTex, GUST's Tex Gyre fonts, and
-%% the var layout class are used for the production.
-%%  
-%% You may use and modify this class for your own book projects, see LICENSE
-%% 
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This layout class has been developed for my series of books called "Verteilte Architekturen" (VAR)
+% published by Steinbeis Edition in Stuttgart, Germany (https://verteiltearchitekturen.de/)
+%
+% The editorial office of the publisher helped a lot with layout, typography, and book styling
+% during copy editing cycles of the first number of the series. The grown latex code was then 
+% revised and rewritten as a layout bundled together with a scaffolding project layout and build 
+% toolset. Starting with the second number of the book series XeLaTex, GUST's Tex Gyre fonts, and
+% the var layout class are used for the production.
+%  
+% You may use and modify this class for your own book projects, see LICENSE
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \makeatletter
 
