@@ -61,6 +61,7 @@
   \def\var@listingname{Listing}%
   \def\var@creditsname{Bildnachweise}%
   \def\var@pagename{Seite}%
+  \def\var@appendixname{Anhang}%
   \def\var@contentsname{Inhaltsverzeichnis}% not properly working with polyglossia?
 }
 \def\var@captionsbritish{%
@@ -73,6 +74,7 @@
   \def\var@listingname{Listing}%
   \def\var@creditsname{Credits}%
   \def\var@pagename{Page}%
+  \def\var@appendixname{Appendix}%
   \def\var@contentsname{Table of Contents}% not properly working with polyglossia?
 }
 
@@ -566,15 +568,15 @@
 
 \AtEndDocument{
   \ifthenelse{\not\boolean{var@draft}}{
-    \varpart{Anhang}{img/headappendix.png}{ 
+    \varpart{\var@appendixname}{img/headappendix.png}{ 
       Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)}
     \printindex
     \var@pageBreakForOdd
     \printnomenclature[2.4cm]
-    \varchapter{\var@creditsname}{}
     \newcounter{var@irun}
     \setcounter{var@irun}{0}
     \ifthenelse{\isundefined\var@creditslist}{}{    
+      \varchapter{\var@creditsname}{}
       \begin{description}
         \raggedright
         \footnotesize

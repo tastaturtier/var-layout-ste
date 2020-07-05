@@ -1,8 +1,6 @@
 # TODO
 - credits des Titels als mit \varcredits*{Titelseite}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
-- kein Bildquellenverzeichnis, falls keine Quellen
 - Anhang-Bild als Parameter
-- part-Name für Anhang in \var@captions{lang}
 - credits des Anhang part-Bilds als mit \varcredits*{appendix}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
 - Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
 - Kommandos für floats (insb. figure wg. bildnachweisen)
