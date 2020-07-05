@@ -1,6 +1,4 @@
 # TODO
-- enhancement: falls lastpagefile/prefacefile nicht angegeben werden, weglassen
-
 - todo: Bildnachweis des Titels als Parameter
 - todo: Anhang-Bild, part-Name, Bildnachweise, S. bei Bildnachweise als Parameter übergeben
 - todo: Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
