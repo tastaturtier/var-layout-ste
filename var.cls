@@ -74,11 +74,19 @@
 \DeclareBoolOption[false]{ebook}
 \DeclareBoolOption[false]{draft}
 \DeclareStringOption[german]{lang}
-\DeclareStringOption{prefacefile}
-\DeclareStringOption{lastpagefile}
+\newcommand{\var@null}{}
+\DeclareStringOption[\var@null]{prefacefile}
+\DeclareStringOption[\var@null]{lastpagefile}
 \newcommand{\var@titlecredit}{blubber} %TODO
 \ProcessKeyvalOptions*
 \csname var@captions\var@lang \endcsname
+
+% from the amsgen package (not clear if available outside miktex)
+% http://www.texdoc.net/texmf-dist/doc/latex/amsmath/amsgen.pdf
+\long\def\@ifempty#1{\@xifempty#1@@..\@nil}
+\long\def\@xifempty#1#2@#3#4#5\@nil{%
+  \ifx#3#4\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
+\long\def\@ifnotempty#1{\@ifempty{#1}{}}
 
 % "print" complementary to "ebook"
 \newboolean{var@print} 
@@ -406,13 +414,6 @@
 \RequirePackage{etoc}
 \RequirePackage{titlesec}
 
-% from the amsgen package (not clear if available outside miktex)
-% http://www.texdoc.net/texmf-dist/doc/latex/amsmath/amsgen.pdf
-\long\def\@ifempty#1{\@xifempty#1@@..\@nil}
-\long\def\@xifempty#1#2@#3#4#5\@nil{%
-  \ifx#3#4\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
-\long\def\@ifnotempty#1{\@ifempty{#1}{}}
-
 \etocarticlestyle 
 \newcounter{var@activitycounter}[chapter]
 \etocsetlevel{activity}{6}
@@ -507,13 +508,17 @@
   \captionsetup[lstlisting]{format=listing}
   \pagenumbering{roman}
   \setcounter{page}{5}
-  \input{\var@prefacefile}
-  \newpage
-  \ifthenelse{\boolean{var@print}}{
-    \checkoddpage\ifoddpage\else%
-      ~\thispagestyle{empty}\newpage
-    \fi%
-  }{}
+  \ifthenelse{\equal{\var@null}{\var@prefacefile}}{
+    % no preface
+  }{% a prefacefile is provided
+    \input{\var@prefacefile}
+    \newpage
+    \ifthenelse{\boolean{var@print}}{
+      \checkoddpage\ifoddpage\else%
+        ~\thispagestyle{empty}\newpage
+      \fi%
+    }{}
+  }
   \tableofcontents% 
   \ifthenelse{\boolean{var@print}}{
     \checkoddpage\ifoddpage%
@@ -544,9 +549,12 @@
       \dolistloop{\var@creditslist}
     \end{description}
   }
- % die letzte Seite muss bei Print innen (=gerade) sein. bei E-Book reicht ein normaler Umbruch
-  \var@pageBreakForEven
-  \input{\var@lastpagefile}
+  \ifthenelse{\equal{\var@null}{\var@lastpagefile}}{
+    % no last page
+  }{% the last page has to be an inner page (= even page number). a normale pagebreak is sufficient at e-books
+    \var@pageBreakForEven
+    \input{\var@lastpagefile}
+  }
 }
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -22,8 +22,9 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 # Options
 - ``lang=german/british`` (optional, default: ``german``) 
 - ``ebook=true/false`` (optional, default: ``false``)
-- ``prefacefile=texfile``
-- ``lastpagefile=texfile``
+- ``prefacefile=texfile`` (optional)
+- ``lastpagefile=texfile`` (optional)
+- ``draft=true/false`` (optional, default: ``false``)
 
 ## Language Option: ``lang=xxx`` (``xxx`` one of ``german``, ``british``)
 - ``xxx`` will be passed to the [``polyglossia``](https://www.ctan.org/pkg/polyglossia) packageas default/main language, thus in principle all [``polyglossia``](https://www.ctan.org/pkg/polyglossia) languages ca be used
