@@ -1,15 +1,28 @@
-% todo: falls lastpagefile/prefacefile nicht angegeben werden, weglassen
-% todo: Bildnachweis des Titels als Parameter
-% todo: Anhang-Bild, part-Name, Bildnachweise, S. bei Bildnachweise als Parameter übergeben
-% todo: Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
-% Kommandos für floats (insb. figure wg. bildnachweisen)
-% Fehler: bildnachweis bei floats: label wird nicht in float gesetzt, sondern dort, wo es erzeugt wird
-% andere Startseitenzahl bei ebook
-% todo: lst-Konfiguration nach private.sty verschieben
-% issue: Erklärung zu fehlenden ersten vier Seiten
-% modus draft (draft für book + ebook + keine Kapitelgrafik), draft.tex automatisch aus Makefile generieren (bindet nur chapter ein)
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  
+%% var class for xelatex2e
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{var}[2020/07/05 var book series LaTeX class]
+\ProvidesClass{var}[2020/07/05 VAR book series LaTeX class]
+%% 
+%% author: Sandro Leuchter (sandro.leuchter@dama.io), github.com: tastaturtier 
+%%
+%% This layout class has been developed for my series of books called "Verteilte Architekturen" (VAR)
+%% published by Steinbeis Edition in Stuttgart, Germany (https://verteiltearchitekturen.de/)
+%%
+%% The editorial office of the publisher helped a lot with layout, typography, and book styling
+%% during copy editing cycles of the first number of the series. The grown latex code was then 
+%% revised and rewritten as a layout bundled together with a scaffolding project layout and build 
+%% toolset. Starting with the second number of the book series XeLaTex, GUST's Tex Gyre fonts, and
+%% the var layout class are used for the production.
+%%  
+%% You may use and modify this class for your own book projects as long as it is mentioned: 
+%% "Typesetting with XeLaTeX and VAR layout class (github.io/tastaturtier/var-layout-ste) using 
+%% the Tex Gyre fonts Termes, Heros and Cursor of GUST."
+%% "Textsatz mit XeLaTeX und VAR Layout Klasse (github.io/tastaturtier/var-layout-ste) unter 
+%% Verwendung der Tex Gyre Schriften Termes, Heros und Cursor der GUST."
+%% 
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \makeatletter
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,8 +98,6 @@
   \LoadClass[10pt,oneside]{book}
 }
 
-
-
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% (portable) fonts
@@ -125,7 +136,6 @@
 \subsubsectionfont{\raggedright}
 \paragraphfont{\raggedright}
 
-% Layout:
 \RequirePackage[all]{nowidow}
 \raggedbottom
 
@@ -148,7 +158,7 @@
 \RequirePackage[paperwidth=16cm,paperheight=23cm]{geometry}
 \geometry{tmargin=2.4cm, bmargin=2.3cm, textwidth=12cm, marginparwidth=5em, marginparsep=1em}
 
-% Anschnitt von 3mm bei Print:
+% cropmarks of 3mm at print:
 \ifthenelse{\boolean{var@print}}{
   \RequirePackage[cam,width=163truemm,height=233truemm,center]{crop}
 }{}  
@@ -171,7 +181,6 @@
 \onehalfspacing
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 
 %%  
 %% überbreite Grafiken; sollen den jeweiligen Marginalienrand ausnutzen
 %%
@@ -210,11 +219,12 @@
   \end{figure}
   \edef\marginnotetextwidth{\the\textwidth}}
   
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% chapter headings
-% chapter picture width at print \paperwidth + 3mm for 3mm cropmarks (STE-Vorgabe)
-% chapter picture width at ebook \paperwidth for 3mm cropmarks (STE-Vorgabe)
-%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  
+%% chapter headings
+%% chapter picture width at print \paperwidth + 3mm for 3mm cropmarks (STE-Vorgabe)
+%% chapter picture width at ebook \paperwidth for 3mm cropmarks (STE-Vorgabe)
+%%
 \titlespacing*{\chapter}{0pt}{*27.5}{*6}
 \ifthenelse{\boolean{var@print}}{
   \titleformat{\chapter}[display]
@@ -237,12 +247,11 @@
     [\vspace{1ex}%
     \titlerule]%
 }
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% foliation, page numbering etc.
-
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  
+%% foliation, page numbering etc.
+%%
 \RequirePackage{calc}
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
@@ -288,7 +297,7 @@
 }
   
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
+%%  
 %% Index
 %%
 \RequirePackage{imakeidx}
@@ -434,14 +443,9 @@
     \tableofcontents\ref{toc:{\var@lastchaptername}}
   \end{var@activitieslistbox}
 }
-%%
+
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-  
-
-
-%% %%%%%%%%%%%%%%%
-%% 
+%%  
 %%  lstlisting 
 %% 
 \renewcommand{\lstlistingname}{\var@listingname}
@@ -459,11 +463,11 @@
     tabsize=4
 }
 \DeclareCaptionFormat{listing}{\raggedright{}#1#2#3}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  
+%% commands for the document structure: varpart, varchapter
 %%
-%% %%%%%%%%%%%%%%%%
-
-
-
 \newcommand{\varpart}[3]{%
   \renewcommand{\var@chapterimg}{}
   \renewcommand{\var@chapterimgcredit}{}
@@ -481,7 +485,10 @@
   \var@prepareactivitiessection{chapt\thechapter}
 }
 
-
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  
+%% listing of credits/image licenses
+%%
 \newcounter{var@creditcounter}
 \setcounter{var@creditcounter}{0}
 \newcommand{\varcredit}[1]{
@@ -490,6 +497,10 @@
   \write\@auxout{\noexpand\listgadd{\noexpand\var@creditslist}{#1}}
 }
 
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  
+%% Hooks
+%%
 \AtBeginDocument{
   \def\labelitemiii{\(\circ\)}
   \setmainlanguage{\var@lang}
@@ -538,9 +549,13 @@
   \input{\var@lastpagefile}
 }
 
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  
+%% internationalization (hyphenation etc.)
+%%
 % from the ployglossia doc: "In general, it is advisable to activate the languages after all packages have been loaded."
 \RequirePackage{polyglossia}
 \setmainlanguage{\var@lang}
-\renewcommand\contentsname{\var@contentsname}
+\renewcommand\contentsname{\var@contentsname} % not working from polyglossia?
 
 \makeatother
