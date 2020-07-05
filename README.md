@@ -1,6 +1,10 @@
 # LaTeX layout class var-layout-ste
 LaTeX (XeLaTeX) layout class for Steinbeis Edition series "Verteilte Architekturen" (var)
 
+For use with XeLaTeX only (uses [``fontspec``](https://www.ctan.org/pkg/fontspec) for font selection and [``polyglossia``](https://www.ctan.org/pkg/polyglossia) for internationalization).
+
+# Fonts
+
 # Options
 - ``lang=german/british`` (optional, default: ``german``) 
 - ``ebook=true/false`` (optional, default: ``false``)
@@ -8,8 +12,8 @@ LaTeX (XeLaTeX) layout class for Steinbeis Edition series "Verteilte Architektur
 - ``lastpagefile=texfile``
 
 ## Language Option: ``lang=xxx`` (``xxx`` one of ``german``, ``british``)
-- ``xxx`` will be passed to the _polyglossia_ packageas default/main language, thus in principle all polyglossia languages ca be used
-- additionally some names specific for the ``var`` layout class will be activated. Currently there are only two sets of names: one for ``german`` and one for ``british`` new languages (that are supported by polyglossia) can be added as with ``british``:
+- ``xxx`` will be passed to the [``polyglossia``](https://www.ctan.org/pkg/polyglossia) packageas default/main language, thus in principle all [``polyglossia``](https://www.ctan.org/pkg/polyglossia) languages ca be used
+- additionally some names specific for the ``var`` layout class will be activated. Currently there are only two sets of names: one for ``german`` and one for ``british`` new languages (that are supported by [``polyglossia``](https://www.ctan.org/pkg/polyglossia)) can be added as with ``british``:
 
 ```latex
     \def\var@captionsbritish{%
@@ -73,14 +77,18 @@ LaTeX (XeLaTeX) layout class for Steinbeis Edition series "Verteilte Architektur
 
 # Macros/Commands
 
-## ``varpart``
+## ``\varpart``
 
-## ``varchapter``
+## ``\varchapter``
 
-## ``varactivitiessection``
+## ``\varactivitiessection``
 - 0 or 1 per varchapter
 - ``activity``-environments (at least one) must follow
 
-## ``varcredit``
+## ``\varcredit``
+
+## ``\varwidefigure``
+## ``\varwidegraphics``
+## ``\varwidegraphicsRotate``
 
 

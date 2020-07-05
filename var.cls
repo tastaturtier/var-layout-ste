@@ -1,4 +1,3 @@
-% todo: "Interface" definieren (CheckCommand's, Environments)
 % todo: falls lastpagefile/prefacefile nicht angegeben werden, weglassen
 % todo: Bildnachweis des Titels als Parameter
 % todo: Anhang-Bild, part-Name, Bildnachweise, S. bei Bildnachweise als Parameter übergeben
@@ -8,7 +7,6 @@
 % andere Startseitenzahl bei ebook
 % todo: lst-Konfiguration nach private.sty verschieben
 % issue: Erklärung zu fehlenden ersten vier Seiten
-% issue: Erklärung xetex + latex und fontspec
 % modus draft (draft für book + ebook + keine Kapitelgrafik), draft.tex automatisch aus Makefile generieren (bindet nur chapter ein)
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{var}[2020/07/05 var book series LaTeX class]
@@ -408,12 +406,12 @@
   \etoctoccontentsline{activity}{\thechapter{}.\thevar@activitycounter{} \@ifnotempty{#2}{#2: }#1}
   \par\medskip\begin{var@activitybox}\noindent\sffamily\textbf{\var@activityname~\thechapter.\thevar@activitycounter{}\@ifnotempty{#2}{ (#2)}:}\\ 
   {\bfseries \var@objectivename:} #1\\\rmfamily}{\end{var@activitybox}\medskip}
-\newcommand{\lastchaptername}{}
+\newcommand{\var@lastchaptername}{}
 \newcommand{\var@prepareactivitiessection}[1]{
-  \renewcommand{\lastchaptername}{#1}
-  \invisiblelocaltableofcontents\label{toc:{\lastchaptername}}
+  \renewcommand{\var@lastchaptername}{#1}
+  \invisiblelocaltableofcontents\label{toc:{\var@lastchaptername}}
 }
-\newcommand{\activitiessection}{
+\newcommand{\varactivitiessection}{
   \clearpage
   \section*{\var@activitiesname}
   \begin{var@activitieslistbox}
@@ -427,7 +425,7 @@
     {\end{small}}
     \etocsetlevel{section}{2} 
     \setcounter{tocdepth}{1}%
-    \tableofcontents\ref{toc:{\lastchaptername}}
+    \tableofcontents\ref{toc:{\var@lastchaptername}}
   \end{var@activitieslistbox}
 }
 %%
