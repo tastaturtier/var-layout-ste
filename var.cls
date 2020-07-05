@@ -1,11 +1,13 @@
+% alle internen Variablen und Funktionen mit @ zu lokalen Namen machen
 % todo: "Interface" definieren (CheckCommand's, Environments)
 % todo: falls lastpagefile/prefacefile nicht angegeben werden, weglassen
-% alle internen Variablen und Funktionen mit @ zu lokalen Namen machen
 % todo: Bildnachweis des Titels als Parameter
+% todo: Anhang-Bild, part-Name, Bildnachweise, S. bei Bildnachweise als Parameter übergeben
 % todo: Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
+% Kommandos für floats (insb. figure wg. bildnachweisen)
+% Fehler: bildnachweis bei floats: label wird nicht in float gesetzt, sondern dort, wo es erzeugt wird
 % andere Startseitenzahl bei ebook
 % todo: lst-Konfiguration nach private.sty verschieben
-% todo: Anhang-Bild, part-Name, Bildnachweise, S. bei Bildnachweise als Parameter übergeben
 % issue: Erklärung zu fehlenden ersten vier Seiten
 % issue: Erklärung xetex + latex und fontspec
 % modus draft (draft für book + ebook + keine Kapitelgrafik), draft.tex automatisch aus Makefile generieren (bindet nur chapter ein)
@@ -229,13 +231,13 @@
     \fancyfoot[EL]{\thepage\hfill\parbox{10cm}{\footnotesize\textsf{\ccnote}}}
     \fancyfoot[OR]{\parbox{10cm}{\footnotesize\textsf{\ccnote}}\hfill\thepage}
   }
-  \newcommand{\pageBreakForOdd}{
+  \newcommand{\var@pageBreakForOdd}{
     \newpage\checkoddpage\ifoddpage%
     \else%
       \thispagestyle{empty}\newpage
     \fi%
   }
-  \newcommand{\pageBreakForEven}{
+  \newcommand{\var@pageBreakForEven}{
     \newpage~\checkoddpage\ifoddpage%
       \thispagestyle{empty}\newpage~
     \fi%
@@ -250,12 +252,10 @@
     \fancyhf{}
     \fancyfoot[OR]{\parbox{10cm}{\footnotesize\textsf{\ccnote}}\hfill\thepage}
   }    
-  \newcommand{\pageBreakForOdd}{\newpage}
-  \newcommand{\pageBreakForEven}{\pageBreakForOdd}
+  \newcommand{\var@pageBreakForOdd}{\newpage}
+  \newcommand{\var@pageBreakForEven}{\var@pageBreakForOdd}
 
 }
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -264,14 +264,13 @@
 \RequirePackage{imakeidx}
 \makeindex
 \indexsetup{level=\chapter,toclevel=chapter} 
-\indexprologue{\bildnachweis{\kapitelbildsrc}\prepareactivitiessection{Index}}
+\indexprologue{\bildnachweis{\kapitelbildsrc}\var@prepareactivitiessection{Index}}
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% Abk.verz.
+%% Abbreviations
 %%
 \RequirePackage{nomencl}
-
 \renewcommand{\thenomenclature}{
   \varchapter{\var@abbreviationsname}{}
   \nompreamble
@@ -283,32 +282,21 @@
   \let\makelabel\nomlabel}}
 \renewcommand{\endthenomenclature}{\endlist\nompostamble}
 \makenomenclature
-%%
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% Exkurs-Box
+%% Excursus-Box
 %%
 \RequirePackage{marginnote}
 \let\marginpar\marginnote
 \RequirePackage{tcolorbox}
 \RequirePackage{float}
-\newenvironment{exkurs}[1]{
+\newenvironment{excursus}[1]{
   \begin{figure}
-    %\marginnote{
-    %  \begin{tikzpicture}
-    %    \node[draw=orange,line width=1pt,circle,fill=orange,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (0pt,0pt){\textcolor{white}{\Large{Ex.}}};
-    %  \end{tikzpicture}}
     \begin{tcolorbox}[colback=yellow!5!white,colframe=orange!75!black,coltitle=white,fonttitle=\sffamily,title={\var@excursusname{}: #1}]
 }{
     \end{tcolorbox}
   \end{figure}}
-%%
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -319,17 +307,16 @@
 \RequirePackage{etoc}
 \RequirePackage{titlesec}
 \RequirePackage{amsgen} % (\@ifnotempty)
-\etocarticlestyle % vielleicht auch nicht (Positionierung von Fließobjekten besser, dafür Chapterhead mit Grafik
-\newcounter{activ}[chapter]
+\etocarticlestyle 
+\newcounter{var@activitycounter}[chapter]
 \etocsetlevel{activity}{6}
-
 \newenvironment{activity}[2]{
-  \refstepcounter{activ}
-  \etoctoccontentsline{activity}{\thechapter{}.\theactiv{} \@ifnotempty{#2}{#2: }#1}
-  \par\medskip\begin{activitybox}\noindent\sffamily\textbf{\var@activityname~\thechapter.\theactiv{}\@ifnotempty{#2}{ (#2)}:}\\ 
+  \refstepcounter{var@activitycounter}
+  \etoctoccontentsline{activity}{\thechapter{}.\thevar@activitycounter{} \@ifnotempty{#2}{#2: }#1}
+  \par\medskip\begin{activitybox}\noindent\sffamily\textbf{\var@activityname~\thechapter.\thevar@activitycounter{}\@ifnotempty{#2}{ (#2)}:}\\ 
   {\bfseries \var@objectivename:} #1\\\rmfamily}{\end{activitybox}\medskip}
 \newcommand{\lastchaptername}{}
-\newcommand{\prepareactivitiessection}[1]{
+\newcommand{\var@prepareactivitiessection}[1]{
   \renewcommand{\lastchaptername}{#1}
   \invisiblelocaltableofcontents\label{toc:{\lastchaptername}}
 }
@@ -449,18 +436,17 @@
   \renewcommand{\kapitelbild}{}
   \renewcommand{\kapitelbildsrc}{}
   \renewcommand{\ccnote}{}
-  \ifthenelse{\equal{\thepage}{1}}{}{\pageBreakForOdd}
+  \ifthenelse{\equal{\thepage}{1}}{}{\var@pageBreakForOdd}
   \part{#1}
   \renewcommand{\kapitelbild}{#2}
   \renewcommand{\kapitelbildsrc}{#3}
-  %\pageBreakForOdd 
 }
 
 \newcommand{\varchapter}[2]{%
   \renewcommand{\ccnote}{#2}
-  \pageBreakForOdd
+  \var@pageBreakForOdd
   \chapter{#1}\bildnachweis{\kapitelbildsrc} 
-  \prepareactivitiessection{chapt\thechapter}
+  \var@prepareactivitiessection{chapt\thechapter}
 }
 
 
@@ -499,7 +485,7 @@
   \varpart{Anhang}{img/headappendix.png}{ 
     Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)}
   \printindex
-  \pageBreakForOdd
+  \var@pageBreakForOdd
   \printnomenclature[2.4cm]
   \varchapter{\var@creditsname}{}
   \newcounter{var@irun}
@@ -517,7 +503,7 @@
     \end{description}
   }
  % die letzte Seite muss bei Print innen (=gerade) sein. bei E-Book reicht ein normaler Umbruch
-  \pageBreakForEven
+  \var@pageBreakForEven
   \input{\var@lastpagefile}
 }
 
