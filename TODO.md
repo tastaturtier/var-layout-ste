@@ -5,8 +5,6 @@
 - todo: Kommandos für floats (insb. figure wg. bildnachweisen)
 - Fehler: bildnachweis bei floats: label wird nicht in float gesetzt, sondern dort, wo es erzeugt wird
 
-- todo: Erklärung zu fehlenden ersten vier Seiten
-
 - enhancement: modus draft (draft für book + ebook + keine Kapitelgrafik)
 - enhancement: draft.chapterX.tex automatisch aus Makefile generieren (bindet nur chapter ein)
 
