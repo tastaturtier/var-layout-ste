@@ -1,5 +1,5 @@
 # LaTeX layout class var-layout-ste
-LaTeX (XeLaTeX) layout class for Steinbeis Edition series "Verteilte Architekturen" (var)
+LaTeX2e (XeLaTeX) layout class for Steinbeis Edition series "[Verteilte Architekturen](https://verteiltearchitekturen.de/)" (var)
 
 For use with XeLaTeX only (uses Unicode, [``fontspec``](https://www.ctan.org/pkg/fontspec) for font selection and [``polyglossia``](https://www.ctan.org/pkg/polyglossia) for internationalization).
 
