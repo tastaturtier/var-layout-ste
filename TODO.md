@@ -6,8 +6,8 @@
 - Fehler: bildnachweis bei floats: label wird nicht in float gesetzt, sondern dort, wo es erzeugt wird
 
 - enhancement: andere Startseitenzahl bei ebook
-
 - todo: Erklärung zu fehlenden ersten vier Seiten
 
-- enhancement: modus draft (draft für book + ebook + keine Kapitelgrafik), draft.tex automatisch aus Makefile generieren (bindet nur chapter ein)
+- enhancement: modus draft (draft für book + ebook + keine Kapitelgrafik)
+- enhancement: draft.chapterX.tex automatisch aus Makefile generieren (bindet nur chapter ein)
 
