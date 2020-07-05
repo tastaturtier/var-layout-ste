@@ -5,7 +5,7 @@ For use with XeLaTeX only (uses Unicode, [``fontspec``](https://www.ctan.org/pkg
 
 Works with [MiKTeX](https://miktex.org/) (tested) and [TeX Live](http://tug.org/texlive/).
 
-Dependencies: XeLaTeX (XeTeX 4.0 + LaTeX2e), [some CTAN-packages}(dependencies.md), and fonts...
+Dependencies: XeLaTeX (XeTeX 4.0 + LaTeX2e), [some CTAN-packages](dependencies.md), and fonts...
 
 # Fonts
 This layout class uses fonts from the [TeX Gyre (TG) Collection of Fonts](http://www.gust.org.pl/projects/e-foundry/tex-gyre). These fonts support e.g. ligatures, alternative glyphs, and swashes. They can be used as Unicode OpenType fonts through [``fontspec``](https://www.ctan.org/pkg/fontspec).
