@@ -33,8 +33,6 @@
 % 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\makeatletter
-
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% colour model
@@ -603,5 +601,3 @@
 \RequirePackage{polyglossia}
 \setmainlanguage{\var@lang}
 \renewcommand\contentsname{\var@contentsname} % not working from polyglossia?
-
-\makeatother
