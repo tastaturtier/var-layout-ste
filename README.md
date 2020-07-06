@@ -103,6 +103,9 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 # Macros/Commands
 
 ## ``\varpart``
+- 1. parameter (optional): credits (type: text)
+- 2. parameter: heading of the part (type: text)
+- 3. parameter: image for use with all chapters of this part (type: file)
 
 ## ``\varchapter``
 

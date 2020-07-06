@@ -486,14 +486,14 @@
 %%  
 %% commands for the document structure: varpart, varchapter
 %%
-\newcommand{\varpart}[3]{%
+\newcommand{\varpart}[3][]{%
   \renewcommand{\var@chapterimg}{}
   \renewcommand{\var@chapterimgcredit}{}
   \renewcommand{\var@howtocite}{}
   \ifthenelse{\equal{\thepage}{1}}{}{\var@pageBreakForOdd}
-  \part{#1}
-  \renewcommand{\var@chapterimg}{#2}
-  \renewcommand{\var@chapterimgcredit}{#3}
+  \part{#2}
+  \renewcommand{\var@chapterimg}{#3}
+  \renewcommand{\var@chapterimgcredit}{#1}
 }
 
 \newcommand{\varchapter}[2]{%
@@ -563,8 +563,7 @@
 
 \AtEndDocument{
   \ifthenelse{\not\boolean{var@draft}}{
-    \varpart{\var@appendixname}{book/img/headappendix.png}{ 
-      Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)}
+    \varpart[Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)]{\var@appendixname}{book/img/headappendix.png}
     \printindex
     \var@pageBreakForOdd
     \printnomenclature[2.4cm]
