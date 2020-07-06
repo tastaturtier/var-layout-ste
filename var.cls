@@ -387,7 +387,7 @@
 \RequirePackage{marginnote}
 \let\marginpar\marginnote
 \RequirePackage{tcolorbox}
-\newenvironment{excursus}[1]{
+\newenvironment{varexcursus}[1]{
   \begin{figure}
     \begin{tcolorbox}[colback=var@colour05!5!var@colour02,colframe=var@colour06!75!var@colour01,coltitle=var@colour02,fonttitle=\sffamily,title={\var@excursusname{}: #1}]
 }{
@@ -410,7 +410,7 @@
           leftmargin=0cm,
           rightmargin=0cm,
           innerbottommargin=5pt]{var@remarkbox}
-\newenvironment{remark}{
+\newenvironment{varremark}{
   \par\vspace{1ex}%
   \begin{var@remarkbox}%
     \marginnote{

@@ -102,20 +102,20 @@ Parameters in brackets (``[`` ``]``) are optional and can be omitted. All three 
 - 0 or 1 per ``\varchapter``
 - ``activity``-environments (at least one) must follow
 
-## ``\vargraphics``
+## ``\vargraphics[``_credits_``]{``_pos_``}{``_width_fraction_``}{``_graphics_file_``}{``_label_``}{``_caption_``}``
 - arbitrary number of occurences
 - between ``\begin{document}`` and ``\end{document}``
 
-## ``\vargraphicsWide``
+## ``\vargraphicsWide[``_credits_``]{``_pos_``}{``_graphics_file_``}{``_label_``}{``_caption_``}``
 - arbitrary number of occurences
 - between ``\begin{document}`` and ``\end{document}``
 
-## ``\vargraphicsWideRotate``
+## ``\vargraphicsWideRotate[``_credits_``]{``_pos_``}{``_graphics_file_``}{``_label_``}{``_caption_``}``
 - arbitrary number of occurences
 - between ``\begin{document}`` and ``\end{document}``
 
 # Environments
-## ``\begin{excursus}{``_title_text_``}
+## ``\begin{varexcursus}{``_title_text_``}
 - for additional topics
 - will be formatted as floating box and placed somewhere near the point where it is created in the text
 - content may consist of several text paragraphs, includegraphic, table etc. are allowed
@@ -123,12 +123,12 @@ Parameters in brackets (``[`` ``]``) are optional and can be omitted. All three 
 - text (i.e. the box itself) must fit on one page
   
 ```latex
-    \begin{excursus}{title text \dots}
+    \begin{varexcursus}{title text \dots}
         text 
-    \end{excursus}
+    \end{varexcursus}
 ```
 
-## ``\begin{remark}``
+## ``\begin{varremark}``
 - for important information
 - will be formatted highlighted (with "!" at the outer margin)
 - placed exactly where created
@@ -136,9 +136,9 @@ Parameters in brackets (``[`` ``]``) are optional and can be omitted. All three 
 - footnotes, floats, etc. allowed
 
 ```latex
-    \begin{remark}
+    \begin{varremark}
         text
-    \end{remark}
+    \end{varremark}
 ```
 
 ## ``\begin{vartable}[``_pos_``]{``_tabular_spec_``}{``_label_``}{``_caption_text_``}``

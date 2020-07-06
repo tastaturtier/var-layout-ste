@@ -13,33 +13,17 @@
   x&y&z\\\hline
 \end{vartable}
 
-Referenz auf die Tabelle am Seitenende: \ref{tab:test} (S.~\pageref{tab:test}).
 Referenz auf die Tabelle am Seitenanfang: \ref{tab:xyz} (S.~\pageref{tab:xyz}).
 
-\begin{vartable}[b]{|r||l|l|}{tab:test}{noch eine Tabelle}
-  \hline
-  \textbf{X}&\textbf{Y}&\textbf{Z}\\\hline\hline
-  x&y&z\\\hline
-  x&y&z\\\hline
-  x&y&z\\\hline
-\end{vartable}
-
-\begin{vartable}{|r||l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}{tab:abc}{und noch eine weitere Tabelle}
-  \hline
-  \textbf{X}&\textbf{Y}&\textbf{Z}\\\hline\hline
-  x&y&z&y&z&y&z&y&z&z&y&z&y&z&y&z\\\hline
-  x&y&z&y&z&y&z&y&z&z&y&z&y&z&y&z\\\hline
-  x&y&z&y&z&y&z&y&z&z&y&z&y&z&y&z\\\hline
-\end{vartable}
 
 \vargraphics[Bildquelle]{b}{0.5}{book/chapter1/example1.png}{fig:labelname1xx}{Beschreibung von xx\dots}
 
 % verwendete Abkürzungen (dürfen überall im Text auftauchen)
 \nomenclature{ABC}{Alfabetanfang} % Dopplungen bei identischen Abkürzungen
 
-\begin{excursus}{Zusatzinformationen}   
+\begin{varexcursus}{Zusatzinformationen}   
     \lipsum[1-2]
-\end{excursus}
+\end{varexcursus}
 
 \lipsum[5-7]
 
@@ -50,9 +34,9 @@ Referenz auf die Tabelle am Seitenanfang: \ref{tab:xyz} (S.~\pageref{tab:xyz}).
 
 \lipsum[8-10]
 
-\begin{remark}
+\begin{varremark}
     Hier sollte etwas wichtiges\index{was wichtiges} stehen.
-\end{remark}
+\end{varremark}
 \section{Abschnitt}
 \lipsum[13]
 \subsection{Unterabschnitt}
