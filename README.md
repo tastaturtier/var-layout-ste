@@ -76,11 +76,23 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 
 # Macros/Commands
 
+Parameters in brackets (``[`` ``]``) are optional and can be omitted. All three forms in the following example are valid:
+
+```latex
+    \varpart[]{First Part}{headA.png}
+    \varpart{second Part}{headB.png}
+    \varpart[heading image by Picasso]{Third Part}{headC.png}
+```
+
 ## ``\varcovercredits{``_credits_``}``
+- optional
 - before ``\begin{document}``
+- at least once needed, but it is OK to have several (last one wins)
 
 ## ``\varappendiximg[``_credits_``]{``_file_``}``
+- optional
 - before ``\begin{document}``
+- at least once needed, but it is OK to have several (last one wins)
 
 ## ``\varpart[``_credits_``]{``_heading_``}{``_file_``}``
 
@@ -103,7 +115,7 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 - between ``\begin{document}`` and ``\end{document}``
 
 # Environments
-## ``excursus``
+## ``\begin{excursus}{``_title_text_``}
 - for additional topics
 - will be formatted as floating box and placed somewhere near the point where it is created in the text
 - content may consist of several text paragraphs, includegraphic, table etc. are allowed
@@ -111,12 +123,12 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 - text (i.e. the box itself) must fit on one page
   
 ```latex
-    \begin{excursus}{title info}
+    \begin{excursus}{title text \dots}
         text 
     \end{excursus}
 ```
 
-## ``remark``
+## ``\begin{remark}``
 - for important information
 - will be formatted highlighted (with "!" at the outer margin)
 - placed exactly where created
@@ -129,5 +141,15 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
     \end{remark}
 ```
 
-## ``activity``
+## ``\begin{vartable}[``_pos_``]{``_tabular_spec_``}{``_label_``}{``_caption_text_``}``
+
+```latex
+    \begin{vartable}[h]{rll}{label}{text \dots}
+        x   & y   & z\\
+        abc & def & ghi\\
+        x   & y   & z\\
+    \end{vartable}
+```
+
+## ``\begin{activity}``
 - must be after ``\varactivitiessection``

@@ -252,6 +252,20 @@
 \newcommand{\vargraphicsWideRotate}[5][\var@null]{
   \var@figureWide[#1]{#2}{\includegraphics[height=\dimexpr(\textwidth + 15mm),angle=90]{#3}}{#4}{#5}}
   
+
+\newenvironment{vartable}[4][]{
+  \begin{table}[#1]
+    \caption{\label{#3}#4}
+    \begin{adjustbox}{center,%
+      max width={\textwidth},%
+      max totalheight={\textheight}}
+      \begin{tabular}{#2}
+}{
+      \end{tabular}
+    \end{adjustbox}
+  \end{table}
+}
+
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  
 %% chapter headings

@@ -5,20 +5,32 @@
 }
 \lipsum[1-4] 
 
-\begin{table}[t]
-  \caption{\label{tab:xyz}Beschreibung \dots}
-  \begin{adjustbox}{center,%
-    max width={\textwidth},%
-    max totalheight={\textheight}}
-      \begin{tabular}{|r||l|l|}
-          \hline
-          \textbf{X}&\textbf{Y}&\textbf{Z}\\\hline\hline
-          x&y&z\\\hline
-          x&y&z\\\hline
-          x&y&z\\\hline
-      \end{tabular}
-\end{adjustbox}
-\end{table}
+\begin{vartable}[h]{|r||l|l|}{tab:xyz}{eine Tabelle \dots}
+  \hline
+  \textbf{X}&\textbf{Y}&\textbf{Z}\\\hline\hline
+  x&y&z\\\hline
+  x&y&z\\\hline
+  x&y&z\\\hline
+\end{vartable}
+
+Referenz auf die Tabelle am Seitenende: \ref{tab:test} (S.~\pageref{tab:test}).
+Referenz auf die Tabelle am Seitenanfang: \ref{tab:xyz} (S.~\pageref{tab:xyz}).
+
+\begin{vartable}[b]{|r||l|l|}{tab:test}{noch eine Tabelle}
+  \hline
+  \textbf{X}&\textbf{Y}&\textbf{Z}\\\hline\hline
+  x&y&z\\\hline
+  x&y&z\\\hline
+  x&y&z\\\hline
+\end{vartable}
+
+\begin{vartable}{|r||l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}{tab:abc}{und noch eine weitere Tabelle}
+  \hline
+  \textbf{X}&\textbf{Y}&\textbf{Z}\\\hline\hline
+  x&y&z&y&z&y&z&y&z&z&y&z&y&z&y&z\\\hline
+  x&y&z&y&z&y&z&y&z&z&y&z&y&z&y&z\\\hline
+  x&y&z&y&z&y&z&y&z&z&y&z&y&z&y&z\\\hline
+\end{vartable}
 
 \vargraphics[Bildquelle]{b}{0.5}{book/chapter1/example1.png}{fig:labelname1xx}{Beschreibung von xx\dots}
 
