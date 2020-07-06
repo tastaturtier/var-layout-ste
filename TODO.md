@@ -7,8 +7,9 @@
 - Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
 - credits des Anhang part-Bilds als mit \varcredits*{appendix}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
 
-- zur Auslieferung: neutrale Grafiken
 - README: Doku zu Ende
+- zur Auslieferung: neutrale Grafiken
+- log checken
 
 \newcommand{\varfigure}
 \newcommand{\varfigure*}[4][]

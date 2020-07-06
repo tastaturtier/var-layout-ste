@@ -1,22 +1,18 @@
 
-out/book.pdf: book.tex var.cls private.sty book/foreword.tex book/ste-ser.tex img/*.png book/*/*
-	xelatex -no-pdf --output-directory=out -halt-on-error book.tex && \
-	makeindex out/book && \
-	makeindex out/book.nlo -s nomencl.ist -o out/book.nls && \
-	xelatex --output-directory=out -halt-on-error -no-pdf book.tex && \
-	xelatex --output-directory=out -halt-on-error -no-pdf book.tex && \
-	xelatex --output-directory=out -halt-on-error -no-pdf book.tex && \
-	xelatex --output-directory=out -halt-on-error -no-pdf book.tex && \
-	xelatex --output-directory=out -halt-on-error book.tex
+out/book.pdf: book.tex book/*/* book/* img/*.png private.sty var.cls
+	xelatex -no-pdf --output-directory=out -halt-on-error $< && \
+	makeindex out/$(basename $<) && \
+	makeindex out/$(basename $<).nlo -s nomencl.ist -o out/$(basename $<).nls && \
+	xelatex --output-directory=out -halt-on-error -no-pdf $< && \
+	xelatex --output-directory=out -halt-on-error -no-pdf $< && \
+	xelatex --output-directory=out -halt-on-error -no-pdf $< && \
+	xelatex --output-directory=out -halt-on-error -no-pdf $< && \
+	xelatex --output-directory=out -halt-on-error $<
 
-out/chapter1.pdf: book/chapter1/*
-	xelatex --output-directory=out -halt-on-error -no-pdf '\def\file{book/chapter1/chapter1}\input{draft}' && \
-	xelatex --output-directory=out -halt-on-error '\def\file{book/chapter1/chapter1}\input{draft}' && \
-	mv out/draft.pdf out/chapter1.pdf
-out/chapter2.pdf: book/chapter2/*
-	xelatex --output-directory=out -halt-on-error -no-pdf '\def\file{book/chapter2/chapter2}\input{draft}' && \
-	xelatex --output-directory=out -halt-on-error '\def\file{book/chapter2/chapter2}\input{draft}' && \
-	mv out/draft.pdf out/chapter2.pdf
+out/chapter%.pdf: book/chapter%/chapter.tex book/chapter%/*
+	xelatex --output-directory=out -halt-on-error -no-pdf '\def\file{$<}\input{draft}' && \
+	xelatex --output-directory=out -halt-on-error '\def\file{$<}\input{draft}' && \
+	mv out/draft.pdf $@
 
 clean:
 	rm out/*.xdv out/*.akt out/*.act out/*.synctex.gz out/*'.synctex(busy)' \
