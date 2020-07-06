@@ -19,9 +19,10 @@
 # 
 # project layout:
 # ----------------
-# var.cls
-# book.tex
-# draft.tex
+# var.cls                    the var layout class
+# local.sty                  any local definitions and macros
+# book.tex                   central document with includes to chapters
+# draft.tex                  central document for producing draft of any chapters
 # book/*.tex                 files that are included on global level (e.g. preface)
 # book/img/*                 files that book/*.tex depend on (e.g. images)
 # book/chapter*/chapter.tex  a chapter (or other unit of work)
@@ -38,7 +39,7 @@
 
 all: out/book.pdf clean 
 
-out/book.pdf: book.tex book/*/* book/* private.sty var.cls
+out/book.pdf: book.tex book/*/* book/* local.sty var.cls
 	xelatex --quiet -no-pdf --output-directory=out -halt-on-error $< && \
 	makeindex out/$(basename $<) && \
 	makeindex out/$(basename $<).nlo -s nomencl.ist -o out/$(basename $<).nls && \
@@ -48,7 +49,7 @@ out/book.pdf: book.tex book/*/* book/* private.sty var.cls
 	xelatex --quiet --output-directory=out -halt-on-error -no-pdf $< && \
 	xelatex --quiet --output-directory=out -halt-on-error $<
 
-out/chapter%.pdf: book/chapter%/chapter.tex book/chapter%/* private.sty var.cls 
+out/chapter%.pdf: book/chapter%/chapter.tex book/chapter%/* local.sty var.cls 
 	xelatex --quiet --output-directory=out -halt-on-error -no-pdf '\def\file{$<}\input{draft}' && \
 	xelatex --quiet --output-directory=out -halt-on-error '\def\file{$<}\input{draft}' && \
 	mv out/draft.pdf $@
