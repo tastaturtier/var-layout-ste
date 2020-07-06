@@ -98,7 +98,7 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 ```
 
 ## ``activity``
-- must be after ``varactivitiessection``
+- must be after ``\varactivitiessection``
 
 # Macros/Commands
 
@@ -114,7 +114,11 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 - ``activity``-environments (at least one) must follow
 
 ## ``\vargraphics``
+
 ## ``\vargraphicsWide``
+
 ## ``\vargraphicsWideRotate``
 
+## ``\varcovercredits{_credits_}``
 
+## ``\varappendiximg[_credits_]{_file_}``
