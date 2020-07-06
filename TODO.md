@@ -8,3 +8,21 @@
 - Fehler: bei ebook wird bei wide* die margin-Seite bei aufeinanderfolgenden Seiten falsch
 - zur Auslieferung: neutrale Grafiken
 - README: Doku zu Ende
+- kein makeatletter/makeatother in var.cls
+
+\begin{figure}[b] oder nicht
+    \begin{center}
+        \includegraphics[width=1.0\textwidth]{VAR1-GoogleAppEngine-CloudGCPKonsole-GAE04b.png}
+        \caption{\label{fig:GAE04b}...}
+    \end{center}
+\end{figure}
+
+\begin{adjustbox}{center,%
+  max width={\textwidth},%
+  max totalheight={\textheight}}
+    \begin{scriptsize}
+        \begin{tabular}{...}
+            ...
+        \end{tabular}
+    \end{scriptsize}
+\end{adjustbox}

@@ -14,13 +14,11 @@
 \lipsum[5-7]
 
 \varwidegraphicsRotate{book/chapter1/example1.png}{fig:labelname1}{Beschreibung \dots}
-\varcredit{Abbildung \ref{fig:labelname1}: Angabe von Quelle und Lizenz für das Bild}
-\varwidegraphicsRotate{book/chapter1/example1.png}{fig:labelname1}{Beschreibung \dots}
-\varcredit{Abbildung \ref{fig:labelname1}: Angabe von Quelle und Lizenz für das Bild}
-\varwidegraphicsRotate{book/chapter1/example1.png}{fig:labelname1}{Beschreibung \dots}
-\varcredit{Abbildung \ref{fig:labelname1}: Angabe von Quelle und Lizenz für das Bild}
-\varwidegraphicsRotate{book/chapter1/example1.png}{fig:labelname1}{Beschreibung \dots}
-\varcredit{Abbildung \ref{fig:labelname1}: Angabe von Quelle und Lizenz für das Bild}
+\makeatletter\var@credit[fig:labelname1]{Angabe von Quelle und Lizenz für das Bild}\makeatother
+\varwidegraphics{img/head2.png}{fig:labelname2}{Beschreibung \dots}
+\makeatletter\var@credit{Angabe von Quelle und Lizenz für das Bild}\makeatother
+\varwidegraphicsRotate{book/chapter1/example1.png}{fig:labelname3}{Beschreibung \dots}
+\makeatletter\var@credit[fig:labelname3]{Angabe von Quelle und Lizenz für das Bild}\makeatother
 
 
 \lipsum[8-10]

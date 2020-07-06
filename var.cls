@@ -62,6 +62,7 @@
   \def\var@creditsname{Bildnachweise}%
   \def\var@pagename{Seite}%
   \def\var@appendixname{Anhang}%
+  \def\var@figname{Abbildung}%
   \def\var@contentsname{Inhaltsverzeichnis}% not properly working with polyglossia?
 }
 \def\var@captionsbritish{%
@@ -75,6 +76,7 @@
   \def\var@creditsname{Credits}%
   \def\var@pagename{Page}%
   \def\var@appendixname{Appendix}%
+  \def\var@figname{Figure}%
   \def\var@contentsname{Table of Contents}% not properly working with polyglossia?
 }
 
@@ -216,37 +218,23 @@
 \RequirePackage{ifoddpage}
 \newcommand{\varwidefigure}[3]{
   \begin{figure}
-  \checkoddpage
-  \ifoddpage
-    #1
-  \else
-    \hspace{-15mm}#1
-  \fi 
-  \caption{\label{#2}#3}
+    \if@twoside% test for twoside instead of \bool{\var@print} because of possible future use of twoside
+      \checkoddpage
+      \ifoddpage
+        #1
+      \else
+        \hspace{-15mm}#1
+      \fi
+    \else% ebook/oneside
+      #1
+    \fi%
+  \caption{\label{#2}#3}%\var@credit[#2]{...} 
   \end{figure}
   \edef\marginnotetextwidth{\the\textwidth}}
 \newcommand{\varwidegraphics}[3]{
-  \begin{figure}
-  \checkoddpage
-  \ifoddpage
-    \includegraphics[width=\dimexpr(\textwidth + 15mm)]{#1}
-  \else
-    \hspace{-15mm}\includegraphics[width=\dimexpr(\textwidth + 15mm)]{#1}
-  \fi 
-  \caption{\label{#2}#3}
-  \end{figure}
-  \edef\marginnotetextwidth{\the\textwidth}}
+  \varwidefigure{\includegraphics[width=\dimexpr(\textwidth + 15mm)]{#1}}{#2}{#3}}
 \newcommand{\varwidegraphicsRotate}[3]{
-  \begin{figure}
-  \checkoddpage
-  \ifoddpage
-    \includegraphics[height=\dimexpr(\textwidth + 15mm),angle=90]{#1}
-  \else
-    \hspace{-15mm}\includegraphics[height=\dimexpr(\textwidth + 15mm),angle=90]{#1}
-  \fi 
-  \caption{\label{#2}#3}
-  \end{figure}
-  \edef\marginnotetextwidth{\the\textwidth}}
+  \varwidefigure{\includegraphics[height=\dimexpr(\textwidth + 15mm),angle=90]{#1}}{#2}{#3}}
   
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  
@@ -343,7 +331,7 @@
 \RequirePackage{imakeidx}
 \makeindex
 \indexsetup{level=\chapter,toclevel=chapter} 
-\indexprologue{\varcredit{\var@chapterimgcredit}\var@prepareactivitiessection{Index}}
+\indexprologue{\var@credit{\var@chapterimgcredit}\var@prepareactivitiessection{Index}}
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -513,7 +501,7 @@
 \newcommand{\varchapter}[2]{%
   \renewcommand{\var@howtocite}{#2}
   \var@pageBreakForOdd
-  \chapter{#1}\varcredit{\var@chapterimgcredit} 
+  \chapter{#1}\var@credit{\var@chapterimgcredit} 
   \var@prepareactivitiessection{chapt\thechapter}
 }
 
@@ -523,10 +511,19 @@
 %%
 \newcounter{var@creditcounter}
 \setcounter{var@creditcounter}{0}
-\newcommand{\varcredit}[1]{
+\newcommand{\var@credit}[2][\var@null]{
   \refstepcounter{var@creditcounter}
   \label{credit:\thevar@creditcounter}
-  \write\@auxout{\noexpand\listgadd{\noexpand\var@creditslist}{#1}}
+  \ifthenelse{\equal{\var@null}{#1}}{
+    % without opt. parameter (label of figure)
+    \write\@auxout{
+      \noexpand\listgadd{\noexpand\var@creditslist}{#2}
+    }
+  }{% with opt. parameter (label of figure)
+    \write\@auxout{
+      \noexpand\listgadd{\noexpand\var@creditslist}{\var@figname{} \noexpand\ref{#1}:~#2}
+    }
+  }
 }
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
