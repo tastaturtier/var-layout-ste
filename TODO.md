@@ -1,6 +1,8 @@
 # TODO
 - Kommandos für floats (insb. figure wg. bildnachweisen)
 
+- -papersize=string als Parameter fpr xelatex?
+
 - credits des Titels als mit \varcredits*{Titelseite}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
 - Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
 - credits des Anhang part-Bilds als mit \varcredits*{appendix}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
