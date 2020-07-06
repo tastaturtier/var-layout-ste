@@ -216,25 +216,25 @@
 %% überbreite Grafiken; sollen den jeweiligen Marginalienrand ausnutzen
 %%
 \RequirePackage{ifoddpage}
-\newcommand{\varwidefigure}[3]{
+\newcommand{\varwidefigure}[4][\var@null]{
   \begin{figure}
     \if@twoside% test for twoside instead of \bool{\var@print} because of possible future use of twoside
       \checkoddpage
       \ifoddpage
-        #1
+        #2
       \else
-        \hspace{-15mm}#1
+        \hspace{-15mm}#2
       \fi
     \else% ebook/oneside
-      #1
+      #2
     \fi%
-  \caption{\label{#2}#3}%\var@credit[#2]{...} 
+  \caption{\label{#3}#4}\ifthenelse{\equal{\var@null}{#1}}{}{\var@credit[#3]{#1}}
   \end{figure}
   \edef\marginnotetextwidth{\the\textwidth}}
-\newcommand{\varwidegraphics}[3]{
-  \varwidefigure{\includegraphics[width=\dimexpr(\textwidth + 15mm)]{#1}}{#2}{#3}}
-\newcommand{\varwidegraphicsRotate}[3]{
-  \varwidefigure{\includegraphics[height=\dimexpr(\textwidth + 15mm),angle=90]{#1}}{#2}{#3}}
+\newcommand{\varwidegraphics}[4][\var@null]{
+  \varwidefigure[#1]{\includegraphics[width=\dimexpr(\textwidth + 15mm)]{#2}}{#3}{#4}}
+\newcommand{\varwidegraphicsRotate}[4][\var@null]{
+  \varwidefigure[#1]{\includegraphics[height=\dimexpr(\textwidth + 15mm),angle=90]{#2}}{#3}{#4}}
   
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  
@@ -521,7 +521,7 @@
     }
   }{% with opt. parameter (label of figure)
     \write\@auxout{
-      \noexpand\listgadd{\noexpand\var@creditslist}{\var@figname{} \noexpand\ref{#1}:~#2}
+      \noexpand\listgadd{\noexpand\var@creditslist}{\var@figname{} \noexpand\ref{#1},~#2}
     }
   }
 }
