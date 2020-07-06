@@ -1,8 +1,6 @@
 # TODO
 - Kommandos für floats (insb. figure wg. bildnachweisen)
 - appendix chapter imgs leer lassen, falls varappendiximg \nicht angegeben => \varpart img optional, in varchapter prüfen
-- Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
-- credits des Anhang part-Bilds als mit \varcredits*{appendix}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
 
 - README: Doku zu Ende
 - zur Auslieferung: neutrale Grafiken
