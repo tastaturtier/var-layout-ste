@@ -39,18 +39,18 @@
 all: out/book.pdf clean 
 
 out/book.pdf: book.tex book/*/* book/* private.sty var.cls
-	xelatex -no-pdf --output-directory=out -halt-on-error $< && \
+	xelatex --quiet -no-pdf --output-directory=out -halt-on-error $< && \
 	makeindex out/$(basename $<) && \
 	makeindex out/$(basename $<).nlo -s nomencl.ist -o out/$(basename $<).nls && \
-	xelatex --output-directory=out -halt-on-error -no-pdf $< && \
-	xelatex --output-directory=out -halt-on-error -no-pdf $< && \
-	xelatex --output-directory=out -halt-on-error -no-pdf $< && \
-	xelatex --output-directory=out -halt-on-error -no-pdf $< && \
-	xelatex --output-directory=out -halt-on-error $<
+	xelatex --quiet --output-directory=out -halt-on-error -no-pdf $< && \
+	xelatex --quiet --output-directory=out -halt-on-error -no-pdf $< && \
+	xelatex --quiet --output-directory=out -halt-on-error -no-pdf $< && \
+	xelatex --quiet --output-directory=out -halt-on-error -no-pdf $< && \
+	xelatex --quiet --output-directory=out -halt-on-error $<
 
 out/chapter%.pdf: book/chapter%/chapter.tex book/chapter%/* private.sty var.cls
-	xelatex --output-directory=out -halt-on-error -no-pdf '\def\file{$<}\input{draft}' && \
-	xelatex --output-directory=out -halt-on-error '\def\file{$<}\input{draft}' && \
+	xelatex --quiet --output-directory=out -halt-on-error -no-pdf '\def\file{$<}\input{draft}' && \
+	xelatex --quiet --output-directory=out -halt-on-error '\def\file{$<}\input{draft}' && \
 	mv out/draft.pdf $@
 
 clean:

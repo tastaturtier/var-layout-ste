@@ -1,16 +1,5 @@
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% individuelle Makros zur Wiederverwendung
+\providecommand{\q}[1]{«#1»} % xelatex only!
 
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% Anführungszeichen: \q{xyz} => <<xyz>>
-%%
-\providecommand{\q}[1]{«{#1}»} % bei xelatex
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% deutsche Abkürzungen
-%%
 \RequirePackage{xspace}
 \providecommand{\zB}{\mbox{z.\,B.}\xspace}
 \providecommand{\ua}{\mbox{u.\,a.}\xspace}
@@ -24,10 +13,6 @@
 \providecommand{\usw}{\mbox{usw.}\xspace}
 \providecommand{\etc}{\mbox{etc.}\xspace}
 
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% für Quelltexte
-%%
 \RequirePackage{xcolor}
 \definecolor{comment}{RGB}{63, 127, 95}
 \definecolor{javadoccomment}{RGB}{63, 95, 191}
