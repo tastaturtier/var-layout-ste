@@ -40,6 +40,10 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
         \def\var@abbreviationsname{Abbreviations}%
         \def\var@listingname{Listing}%
         \def\var@creditsname{Credits}%
+        \def\var@pagename{Page}%
+        \def\var@covername{Cover}%
+        \def\var@appendixname{Appendix}%
+        \def\var@figname{Figure}%
         \def\var@contentsname{Table of Contents}
     }
 ```

@@ -18,7 +18,7 @@
 %  
 % var class for xelatex2e, https://github.com/tastaturtier/var-layout-ste
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{var}[2020/07/05 VAR book series LaTeX class]
+\ProvidesClass{var}[2020/07/07 VAR book series LaTeX class]
 %
 % This layout class has been developed for my series of books called "Verteilte Architekturen" (VAR)
 % published by Steinbeis Edition in Stuttgart, Germany (https://verteiltearchitekturen.de/)
