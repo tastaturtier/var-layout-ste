@@ -1,12 +1,10 @@
 # TODO
 - kein makeatletter/makeatother in var.cls
-- Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
-- Fehler: bildnachweis bei floats: label wird nicht in float gesetzt, sondern dort, wo es erzeugt wird
 
 - Kommandos für floats (insb. figure wg. bildnachweisen)
 
 - credits des Titels als mit \varcredits*{Titelseite}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
-- Anhang-Bild als Parameter
+- Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
 - credits des Anhang part-Bilds als mit \varcredits*{appendix}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
 
 - zur Auslieferung: neutrale Grafiken
