@@ -1,6 +1,4 @@
 # TODO
-- kein makeatletter/makeatother in var.cls
-
 - Kommandos für floats (insb. figure wg. bildnachweisen)
 
 - credits des Titels als mit \varcredits*{Titelseite}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
@@ -10,19 +8,23 @@
 - zur Auslieferung: neutrale Grafiken
 - README: Doku zu Ende
 
-\begin{figure}[b] oder nicht
+\newcommand{\varfigure}
+\newcommand{\varfigure*}[4][]
+
+\newcommand{\var@figure}[]{
+
+}
+\begin{figure}[b]
     \begin{center}
-        \includegraphics[width=1.0\textwidth]{VAR1-GoogleAppEngine-CloudGCPKonsole-GAE04b.png}
-        \caption{\label{fig:GAE04b}...}
+        \includegraphics[width=1.0\textwidth]{file}
+        \caption{\label{label}text}
     \end{center}
 \end{figure}
 
 \begin{adjustbox}{center,%
   max width={\textwidth},%
   max totalheight={\textheight}}
-    \begin{scriptsize}
-        \begin{tabular}{...}
-            ...
-        \end{tabular}
-    \end{scriptsize}
+    \begin{tabular}{...}
+        ...
+    \end{tabular}
 \end{adjustbox}
