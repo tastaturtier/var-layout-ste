@@ -24,10 +24,3 @@ clean:
 	out/*.aux out/*.mtc out/*.fdb_latexmk out/*.mtc0 out/*.fls out/*.nlo \
 	out/*.idx out/*.out out/*.ilg out/*.ind out/*.log out/*.toc out/*.maf \
 	out/*.nls
-
-%.pdf: %.xdv
-	xdvipdfmx $<
-
-%.xdv: %.tex
-	xelatex -no-pdf $<
-
