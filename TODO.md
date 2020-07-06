@@ -1,7 +1,6 @@
 # TODO
 - Kommandos für floats (insb. figure wg. bildnachweisen)
-
-- credits des Titels als mit \varcredits*{Titelseite}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
+- appendix chapter imgs leer lassen, falls varappendiximg \nicht angegeben => \varpart img optional, in varchapter prüfen
 - Bild und Bildquelle für Anhang-KapitelIllu als Parameter übergeben
 - credits des Anhang part-Bilds als mit \varcredits*{appendix}{...}, falls nicht angegeben, nicht im Bildquellenverzeichnis
 

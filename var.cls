@@ -59,6 +59,7 @@
   \def\var@listingname{Listing}%
   \def\var@creditsname{Bildnachweise}%
   \def\var@pagename{Seite}%
+  \def\var@covername{Titelbild}%
   \def\var@appendixname{Anhang}%
   \def\var@figname{Abbildung}%
   \def\var@contentsname{Inhaltsverzeichnis}% not properly working with polyglossia?
@@ -73,6 +74,7 @@
   \def\var@listingname{Listing}%
   \def\var@creditsname{Credits}%
   \def\var@pagename{Page}%
+  \def\var@covername{Cover}%
   \def\var@appendixname{Appendix}%
   \def\var@figname{Figure}%
   \def\var@contentsname{Table of Contents}% not properly working with polyglossia?
@@ -91,7 +93,6 @@
 \newcommand{\var@null}{}
 \DeclareStringOption[\var@null]{prefacefile}
 \DeclareStringOption[\var@null]{lastpagefile}
-\newcommand{\var@titlecredit}{blubber} %TODO
 \ProcessKeyvalOptions*
 \csname var@captions\var@lang \endcsname
 
@@ -101,6 +102,15 @@
 \long\def\@xifempty#1#2@#3#4#5\@nil{%
   \ifx#3#4\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi}
 \long\def\@ifnotempty#1{\@ifempty{#1}{}}
+
+\newcommand{\varcovercredits}[1]{\def\var@covercredits{#1}}
+\newcommand{\varappendiximg}[2][\var@null]{
+  \ifthenelse{\equal{\var@null}{#1}}{
+  }{
+    \def\var@appendixcredits{#1}
+  }
+  \def\var@appendiximg{#2}
+}
 
 % "print" complementary to "ebook"
 \newboolean{var@print} 
@@ -563,7 +573,11 @@
 
 \AtEndDocument{
   \ifthenelse{\not\boolean{var@draft}}{
-    \varpart[Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)]{\var@appendixname}{book/img/headappendix.png}
+    \ifthenelse{\isundefined{\var@appendixcredits}}{
+      \varpart{\var@appendixname}{\var@appendiximg}
+    }{
+      \varpart[\var@appendixcredits]{\var@appendixname}{\var@appendiximg}
+    }
     \printindex
     \var@pageBreakForOdd
     \printnomenclature[2.4cm]
@@ -575,6 +589,10 @@
         \raggedright
         \footnotesize
         \sloppy
+        \ifthenelse{\isundefined\var@covercredits}{
+        }{
+          \item[\var@covername{}:] \var@covercredits{}.
+        }
         \renewcommand*{\do}[1]{
           \refstepcounter{var@irun}
           \item[\var@pagename{} \pageref{credit:\thevar@irun}:] #1.
