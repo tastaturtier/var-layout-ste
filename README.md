@@ -121,4 +121,4 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 
 ## ``\varcovercredits{_credits_}``
 
-## ``\varappendiximg[_credits_]{_file_}``
+## ``\varappendiximg[``_credits_``]{``_file_``}``
