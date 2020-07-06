@@ -13,7 +13,7 @@
 % 
 % The Current Maintainer of this work is Sandro Leuchter.
 %
-% This work consists of the files var.cls
+% This work consists of the files var.cls, Makefile
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  
 % var class for xelatex2e, https://github.com/tastaturtier/var-layout-ste
