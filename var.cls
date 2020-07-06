@@ -563,7 +563,7 @@
 
 \AtEndDocument{
   \ifthenelse{\not\boolean{var@draft}}{
-    \varpart{\var@appendixname}{img/headappendix.png}{ 
+    \varpart{\var@appendixname}{book/img/headappendix.png}{ 
       Ausschnitt aus einem Foto von Florian Richter («florianric» bei Flickr), lizensiert unter CC BY 2.0 (\url{https://creativecommons.org/licenses/by/2.0/}). Bezug via Flickr (\url{https://www.flickr.com/photos/florianric/7263382550/}, letzter Zugriff: 14.10.2018)}
     \printindex
     \var@pageBreakForOdd
