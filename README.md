@@ -113,10 +113,8 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 - 0 or 1 per varchapter
 - ``activity``-environments (at least one) must follow
 
-## ``\varcredit``
-
-## ``\varwidefigure``
-## ``\varwidegraphics``
-## ``\varwidegraphicsRotate``
+## ``\vargraphics``
+## ``\vargraphicsWide``
+## ``\vargraphicsWideRotate``
 
 

@@ -1,24 +1,39 @@
-\varchapter{Name von Kapitel\_1}{
+  \varchapter{Name von Kapitel\_1}{
     S.~Leuchter, \textit{API-Technologien und -Design}, DOI:~\href{https://doi.org/10.5281/zenodo.XXXXXXX}{10.5281/zenodo.XXXXXXX}\\
     \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA 4.0} 
     Steinbeis-Edition (Verteilte Architekturen; 2, Stuttgart 2020
 }
 \lipsum[1-4] 
 
+\begin{table}[t]
+  \caption{\label{tab:xyz}Beschreibung \dots}
+  \begin{adjustbox}{center,%
+    max width={\textwidth},%
+    max totalheight={\textheight}}
+      \begin{tabular}{|r||l|l|}
+          \hline
+          \textbf{X}&\textbf{Y}&\textbf{Z}\\\hline\hline
+          x&y&z\\\hline
+          x&y&z\\\hline
+          x&y&z\\\hline
+      \end{tabular}
+\end{adjustbox}
+\end{table}
+
+\vargraphics[Bildquelle]{b}{0.5}{book/chapter1/example1.png}{fig:labelname1xx}{Beschreibung von xx\dots}
+
 % verwendete Abkürzungen (dürfen überall im Text auftauchen)
 \nomenclature{ABC}{Alfabetanfang} % Dopplungen bei identischen Abkürzungen
 
-\begin{excursus}{Zusatzinformationen}
-    Muss auf eine \q{Seite} passen, wird als \textit{float} positioniert.
-    
+\begin{excursus}{Zusatzinformationen}   
     \lipsum[1-2]
 \end{excursus}
 
 \lipsum[5-7]
 
-\varwidegraphicsRotate[Angabe von Quelle und Lizenz für das Bild (1.1)]{book/chapter1/example1.png}{fig:labelname1}{Beschreibung \dots}
-\varwidegraphics[Angabe von Quelle und Lizenz für das Bild (1.2)]{book/chapter1/example1.png}{fig:labelname2}{Beschreibung \dots}
-\varwidegraphicsRotate[Angabe von Quelle und Lizenz für das Bild (1.3)]{book/chapter1/example1.png}{fig:labelname3}{Beschreibung \dots}
+\vargraphicsWideRotate[Angabe von Quelle und Lizenz für das Bild (1.1)]{}{book/chapter1/example1.png}{fig:labelname1}{Beschreibung \dots}
+\vargraphicsWide[Angabe von Quelle und Lizenz für das Bild (1.2)]{}{book/chapter1/example1.png}{fig:labelname2}{Beschreibung \dots}
+\vargraphicsWideRotate[Angabe von Quelle und Lizenz für das Bild (1.3)]{}{book/chapter1/example1.png}{fig:labelname3}{Beschreibung \dots}
 
 
 \lipsum[8-10]
@@ -51,7 +66,7 @@ Hier beginnt das Praktikum mit \textit{activity}-Umgebungen\dots
 \end{activity}
 
 normally do not use floats for listings:
-\begin{lstlisting}%default language is Java
+\begin{lstlisting}
 import java.util.*;
 public class Test extends Toast implements Brot {
     // ...

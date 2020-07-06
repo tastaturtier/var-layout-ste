@@ -221,28 +221,36 @@
 
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  
-%% überbreite Grafiken; sollen den jeweiligen Marginalienrand ausnutzen
+%% Grafiken im allgemeinen und überbreite Grafiken (sollen den jeweiligen Marginalienrand ausnutzen)
 %%
 \RequirePackage{ifoddpage}
-\newcommand{\varwidefigure}[4][\var@null]{
-  \begin{figure}
+\newcommand{\var@figure}[5][\var@null]{
+  \begin{figure}[#2]\centering
+    #3
+  \caption{\label{#4}#5}\ifthenelse{\equal{\var@null}{#1}}{#2}{\var@credit[#4]{#1}}
+  \end{figure}
+  \edef\marginnotetextwidth{\the\textwidth}
+}  
+\newcommand{\var@figureWide}[5][\var@null]{
+  \var@figure[#1]{#2}{
     \if@twoside% test for twoside instead of \bool{\var@print} because of possible future use of twoside
       \checkoddpage
       \ifoddpage
-        #2
+        #3
       \else
-        \hspace{-15mm}#2
+        \hspace{-15mm}#3
       \fi
     \else% ebook/oneside
-      #2
+      #3
     \fi%
-  \caption{\label{#3}#4}\ifthenelse{\equal{\var@null}{#1}}{}{\var@credit[#3]{#1}}
-  \end{figure}
-  \edef\marginnotetextwidth{\the\textwidth}}
-\newcommand{\varwidegraphics}[4][\var@null]{
-  \varwidefigure[#1]{\includegraphics[width=\dimexpr(\textwidth + 15mm)]{#2}}{#3}{#4}}
-\newcommand{\varwidegraphicsRotate}[4][\var@null]{
-  \varwidefigure[#1]{\includegraphics[height=\dimexpr(\textwidth + 15mm),angle=90]{#2}}{#3}{#4}}
+  }{#4}{#5}
+}
+\newcommand{\vargraphics}[6][\var@null]{
+  \var@figure[#1]{#2}{\includegraphics[width=#3\textwidth]{#4}}{#5}{#6}}
+\newcommand{\vargraphicsWide}[5][\var@null]{
+  \var@figureWide[#1]{#2}{\includegraphics[width=\dimexpr(\textwidth + 15mm)]{#3}}{#4}{#5}}
+\newcommand{\vargraphicsWideRotate}[5][\var@null]{
+  \var@figureWide[#1]{#2}{\includegraphics[height=\dimexpr(\textwidth + 15mm),angle=90]{#3}}{#4}{#5}}
   
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  

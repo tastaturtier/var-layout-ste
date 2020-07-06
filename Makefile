@@ -48,7 +48,7 @@ out/book.pdf: book.tex book/*/* book/* private.sty var.cls
 	xelatex --quiet --output-directory=out -halt-on-error -no-pdf $< && \
 	xelatex --quiet --output-directory=out -halt-on-error $<
 
-out/chapter%.pdf: book/chapter%/chapter.tex book/chapter%/* private.sty var.cls
+out/chapter%.pdf: book/chapter%/chapter.tex book/chapter%/* private.sty var.cls 
 	xelatex --quiet --output-directory=out -halt-on-error -no-pdf '\def\file{$<}\input{draft}' && \
 	xelatex --quiet --output-directory=out -halt-on-error '\def\file{$<}\input{draft}' && \
 	mv out/draft.pdf $@
