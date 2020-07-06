@@ -70,6 +70,34 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 - The first 4/5 pages are provided by the publisher.
 - pages without text are empty (print) resp. are not included (e-book) 
 
+# Macros/Commands
+
+## ``\varcovercredits{``_credits_``}``
+- before ``\begin{document}``
+
+## ``\varappendiximg[``_credits_``]{``_file_``}``
+- before ``\begin{document}``
+
+## ``\varpart[``_credits_``]{``_heading_``}{``_file_``}``
+
+## ``\varchapter{``_heading_``}{``_how_to_cite_``}``
+
+## ``\varactivitiessection``
+- 0 or 1 per ``\varchapter``
+- ``activity``-environments (at least one) must follow
+
+## ``\vargraphics``
+- arbitrary number of occurences
+- between ``\begin{document}`` and ``\end{document}``
+
+## ``\vargraphicsWide``
+- arbitrary number of occurences
+- between ``\begin{document}`` and ``\end{document}``
+
+## ``\vargraphicsWideRotate``
+- arbitrary number of occurences
+- between ``\begin{document}`` and ``\end{document}``
+
 # Environments
 ## ``excursus``
 - for additional topics
@@ -99,26 +127,3 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 
 ## ``activity``
 - must be after ``\varactivitiessection``
-
-# Macros/Commands
-
-## ``\varpart``
-- 1. parameter (optional): credits (type: text)
-- 2. parameter: heading of the part (type: text)
-- 3. parameter: image for use with all chapters of this part (type: file)
-
-## ``\varchapter``
-
-## ``\varactivitiessection``
-- 0 or 1 per varchapter
-- ``activity``-environments (at least one) must follow
-
-## ``\vargraphics``
-
-## ``\vargraphicsWide``
-
-## ``\vargraphicsWideRotate``
-
-## ``\varcovercredits{_credits_}``
-
-## ``\varappendiximg[``_credits_``]{``_file_``}``
