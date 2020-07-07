@@ -5,7 +5,7 @@ This layout class has been developed for my series of books called ["Verteilte A
 
 The editorial office of the publisher helped a lot with layout, typography, and book styling during copy editing cycles of the first number of the series. The grown latex code was then revised and rewritten as a layout bundled together with a scaffolding project layout and build toolset. Starting with the second number of the book series XeLaTex, GUST's Tex Gyre fonts, and the var layout class are used for the production.
 
-You may use and modify this class for your own book projects, see [LICENSE}(LICENSE)
+You may use and modify this class for your own book projects, see [LICENSE](LICENSE)
 
 # TeX-Envionment
 For use with XeLaTeX only (uses Unicode, [``fontspec``](https://www.ctan.org/pkg/fontspec) for font selection and [``polyglossia``](https://www.ctan.org/pkg/polyglossia) for internationalization).
