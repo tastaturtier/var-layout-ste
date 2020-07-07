@@ -1,11 +1,11 @@
-  \varchapter{Name von Kapitel\_1}{
-    S.~Leuchter, \textit{API-Technologien und -Design}, DOI:~\href{https://doi.org/10.5281/zenodo.XXXXXXX}{10.5281/zenodo.XXXXXXX}\\
-    \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA 4.0} 
-    Steinbeis-Edition (Verteilte Architekturen; 2, Stuttgart 2020
+\varchapter{Title of Chapter}{
+    Bibliographic Info, DOI:~\href{https://doi.org/10.5281/zenodo.XXXXXXX}{10.5281/zenodo.XXXXXXX}\\
+    \href{https://creativecommons.org/licenses/by-sa/4.0/}{CC BY-SA 4.0} 
+    Steinbeis-Edition (Verteilte Architekturen; XX, Stuttgart 20XX
 }
 \lipsum[1-4] 
 
-\begin{vartable}[h]{|r||l|l|}{tab:xyz}{eine Tabelle \dots}
+\begin{vartable}[h]{|r||l|l|}{tab:label1}{descritive text on this table \dots}
   \hline
   \textbf{X}&\textbf{Y}&\textbf{Z}\\\hline\hline
   x&y&z\\\hline
@@ -13,55 +13,57 @@
   x&y&z\\\hline
 \end{vartable}
 
-Referenz auf die Tabelle am Seitenanfang: \ref{tab:xyz} (S.~\pageref{tab:xyz}).
+References to this table: \ref{tab:label1} (S.~\pageref{tab:label1}).
 
+\vargraphics[credits]{b}{0.5}{book/chapter1/example1.png}{fig:label.1.1}{
+  caption text \dots
+}
 
-\vargraphics[Bildquelle]{b}{0.5}{book/chapter1/example1.png}{fig:labelname1xx}{Beschreibung von xx\dots}
+\nomenclature{ABC}{TBA}
 
-% verwendete Abkürzungen (dürfen überall im Text auftauchen)
-\nomenclature{ABC}{Alfabetanfang} % Dopplungen bei identischen Abkürzungen
-
-\begin{varexcursus}{Zusatzinformationen}   
+\begin{varexcursus}{Title}   
     \lipsum[1-2]
 \end{varexcursus}
 
 \lipsum[5-7]
 
-\vargraphicsWideRotate[Angabe von Quelle und Lizenz für das Bild (1.1)]{}{book/chapter1/example1.png}{fig:labelname1}{Beschreibung \dots}
-\vargraphicsWide[Angabe von Quelle und Lizenz für das Bild (1.2)]{}{book/chapter1/example1.png}{fig:labelname2}{Beschreibung \dots}
-\vargraphicsWideRotate[Angabe von Quelle und Lizenz für das Bild (1.3)]{}{book/chapter1/example1.png}{fig:labelname3}{Beschreibung \dots}
+\vargraphicsWideRotate[source info for this figure]{}{book/chapter1/example1.png}{fig:label.1.2}{
+  caption text \dots
+}
+\vargraphicsWideRotate[credits for this figure]{}{book/chapter1/example1.png}{fig:id}{
+  caption text \dots
+}
 
 
 \lipsum[8-10]
 
 \begin{varremark}
-    Hier sollte etwas wichtiges\index{was wichtiges} stehen.
+    \lipsum[1]
 \end{varremark}
-\section{Abschnitt}
+
+\section{Heading}
 \lipsum[13]
-\subsection{Unterabschnitt}
+\subsection{Heading}
 \lipsum[14]
-\subsubsection{Unterunterabschnitt}
+\subsubsection{Heading}
 \lipsum[15]
-\paragraph{Unterunterunterabschnitt}
+\paragraph{Heading}
 \lipsum[16]
-\subparagraph{Unterunterunterunterabschnitt}
+\subparagraph{Heading}
 \lipsum[17]
 
 \varactivitiessection
-Hier beginnt das Praktikum mit \textit{activity}-Umgebungen\dots
-
 \lipsum[17]
 
-\begin{varactivity}{Aktivität\_a}
-    \lipsum[18-19]
+\begin{varactivity}{the objective of this activity \dots}
+  \lipsum[18-19]
 \end{varactivity}
 
-\begin{varactivity}[nur wenn \dots]{Aktivität\_b}
-    \lipsum[20]
+\begin{varactivity}{my activity objective}
+  \lipsum[22]
 \end{varactivity}
 
-normally do not use floats for listings:
+
 \begin{lstlisting}
 import java.util.*;
 public class Test extends Toast implements Brot {
@@ -69,8 +71,8 @@ public class Test extends Toast implements Brot {
 }
 \end{lstlisting}
 
-Listings can have captions, and can be references (e.\,g.~Listing~\ref{listing:htmllisting}).
-\begin{lstlisting}[language=HTML, caption={sourcecode in different languages possible, can have a caption}, label=listing:htmllisting]
+Listings can have captions, and can be referenced (e.\,g.~Listing~\ref{lis:htmllisting}).
+\begin{lstlisting}[language=HTML, caption={sourcecode in different languages possible, can have a caption}, label=lis:htmllisting]
 <html>
   <head><title>abc def</title></head>
   <body>

@@ -44,7 +44,7 @@ The ``var`` layout class can be controlled through the following parameters:
         \def\var@activitiesname{Exercises}%
         \def\var@activityname{Activity Step}%
         \def\var@objectivename{Objective}%
-        \def\var@activitiesheadingname{Activity Steps}%
+        \def\var@activitiesheadingname{Steps}%
         \def\var@abbreviationsname{Abbreviations}%
         \def\var@listingname{Listing}%
         \def\var@creditsname{Credits}%

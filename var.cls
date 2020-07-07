@@ -69,7 +69,7 @@
   \def\var@activitiesname{Exercises}%
   \def\var@activityname{Activity Step}%
   \def\var@objectivename{Objective}%
-  \def\var@activitiesheadingname{Activity Steps}%
+  \def\var@activitiesheadingname{Steps}%
   \def\var@abbreviationsname{Abbreviations}%
   \def\var@listingname{Listing}%
   \def\var@creditsname{Credits}%
@@ -234,12 +234,12 @@
 \newcommand{\var@figureWide}[5][\var@null]{
   \var@figure[#1]{#2}{
     \if@twoside% test for twoside instead of \bool{\var@print} because of possible future use of twoside
-      \checkoddpage
-      \ifoddpage
+      \checkoddpage%
+      \ifoddpage%
         #3
-      \else
+      \else%
         \hspace{-15mm}#3
-      \fi
+      \fi%
     \else% ebook/oneside
       #3
     \fi%
@@ -400,7 +400,8 @@
 %%
 \RequirePackage[framemethod=default]{mdframed} 
 
-\newmdenv[skipabove=7pt,
+\newmdenv[nobreak=true,
+          skipabove=7pt,
           skipbelow=7pt,
           backgroundcolor=var@colour01!5,
           linecolor=var@colour04,
