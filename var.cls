@@ -426,7 +426,6 @@
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% Activity Environment ("Aktivitätsschritt") mit Verzeichnisliste in jedem Kapitel
-%% \begin{activity}{Ziel}{optional in Klammern hinter Aktivitätsschritt x.xx}
 %%
 \newmdenv[skipabove=0pt,
           skipbelow=2ex,
@@ -467,11 +466,11 @@
 \etocarticlestyle 
 \newcounter{var@activitycounter}[chapter]
 \etocsetlevel{activity}{6}
-\newenvironment{activity}[2]{
+\newenvironment{varactivity}[2][]{
   \refstepcounter{var@activitycounter}
-  \etoctoccontentsline{activity}{\thechapter{}.\thevar@activitycounter{} \@ifnotempty{#2}{#2: }#1}
-  \par\medskip\begin{var@activitybox}\noindent\sffamily\textbf{\var@activityname~\thechapter.\thevar@activitycounter{}\@ifnotempty{#2}{ (#2)}:}\\ 
-  {\bfseries \var@objectivename:} #1\\\rmfamily}{\end{var@activitybox}\medskip}
+  \etoctoccontentsline{activity}{\thechapter{}.\thevar@activitycounter{} \@ifnotempty{#1}{#1: }#2}
+  \par\medskip\begin{var@activitybox}\noindent\sffamily\textbf{\var@activityname~\thechapter.\thevar@activitycounter{}\@ifnotempty{#1}{ (#1)}:}\\ 
+  {\bfseries \var@objectivename:} #2\\\rmfamily}{\end{var@activitybox}\medskip}
 \newcommand{\var@lastchaptername}{}
 \newcommand{\var@prepareactivitiessection}[1]{
   \renewcommand{\var@lastchaptername}{#1}

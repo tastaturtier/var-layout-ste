@@ -1,6 +1,13 @@
 # LaTeX layout class var-layout-ste
 LaTeX2e (XeLaTeX) layout class for Steinbeis Edition series "[Verteilte Architekturen](https://verteiltearchitekturen.de/)" (var)
 
+This layout class has been developed for my series of books called ["Verteilte Architekturen" (VAR)](https://verteiltearchitekturen.de/) published by [Steinbeis Edition](https://www.steinbeis-edition.de/) in Stuttgart, Germany.
+
+The editorial office of the publisher helped a lot with layout, typography, and book styling during copy editing cycles of the first number of the series. The grown latex code was then revised and rewritten as a layout bundled together with a scaffolding project layout and build toolset. Starting with the second number of the book series XeLaTex, GUST's Tex Gyre fonts, and the var layout class are used for the production.
+
+You may use and modify this class for your own book projects, see [LICENSE}(LICENSE)
+
+# TeX-Envionment
 For use with XeLaTeX only (uses Unicode, [``fontspec``](https://www.ctan.org/pkg/fontspec) for font selection and [``polyglossia``](https://www.ctan.org/pkg/polyglossia) for internationalization).
 
 Works with [MiKTeX](https://miktex.org/) (tested) and [TeX Live](http://tug.org/texlive/).
@@ -20,6 +27,7 @@ You need to install the following three fonts in order to use the ``var`` layout
 The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http://www.gust.org.pl/projects/e-foundry/licenses), which is a free license, legally equivalent to the [LaTeX Project Public License (LPPL)](http://www.latex-project.org/lppl/), version 1.3c or later. The freedoms granted by GFL include the free use of the fonts for whatever purpose you wish. You can also take the fonts and modify them for your own use or redistribution, but to avoid confusion in such a case you are requested to change the name(s) of the font(s) and comprising files—please follow the guidance of the [license](http://www.gust.org.pl/projects/e-foundry/licenses/index_html).
 
 # Options
+The ``var`` layout class can be controlled through the following parameters:
 - ``lang=german/british`` (optional, default: ``german``) 
 - ``ebook=true/false`` (optional, default: ``false``)
 - ``prefacefile=texfile`` (optional)
@@ -151,5 +159,5 @@ Parameters in brackets (``[`` ``]``) are optional and can be omitted. All three 
     \end{vartable}
 ```
 
-## ``\begin{activity}``
+## ``\begin{varactivity}[``_condition_text_``]{``_objective_``}``
 - must be after ``\varactivitiessection``
