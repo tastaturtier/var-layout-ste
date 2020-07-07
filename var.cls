@@ -468,9 +468,10 @@
 \etocsetlevel{activity}{6}
 \newenvironment{varactivity}[2][]{
   \refstepcounter{var@activitycounter}
+  \par\medskip\begin{var@activitybox}
   \etoctoccontentsline{activity}{\thechapter{}.\thevar@activitycounter{} \@ifnotempty{#1}{#1: }#2}
-  \par\medskip\begin{var@activitybox}\noindent\sffamily\textbf{\var@activityname~\thechapter.\thevar@activitycounter{}\@ifnotempty{#1}{ (#1)}:}\\ 
-  {\bfseries \var@objectivename:} #2\\\rmfamily}{\end{var@activitybox}\medskip}
+  \noindent\sffamily\textbf{\var@activityname~\thechapter.\thevar@activitycounter{}\@ifnotempty{#1}{ (#1)}:}\\ 
+  \textbf{\var@objectivename:} #2\\\rmfamily}{\end{var@activitybox}\medskip}
 \newcommand{\var@lastchaptername}{}
 \newcommand{\var@prepareactivitiessection}[1]{
   \renewcommand{\var@lastchaptername}{#1}
@@ -530,7 +531,7 @@
 \newcommand{\varchapter}[2]{%
   \renewcommand{\var@howtocite}{#2}
   \var@pageBreakForOdd
-  \chapter{#1}\var@credit{\var@chapterimgcredit} 
+  \chapter{#1}\ifthenelse{\equal{\var@chapterimgcredit}{\var@null}}{}{\var@credit{\var@chapterimgcredit}}
   \var@prepareactivitiessection{chapt\thechapter}
 }
 
