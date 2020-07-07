@@ -104,6 +104,7 @@
 \long\def\@ifnotempty#1{\@ifempty{#1}{}}
 
 \newcommand{\varcovercredits}[1]{\def\var@covercredits{#1}}
+\def\var@appendiximg{}
 \newcommand{\varappendiximg}[2][\var@null]{
   \ifthenelse{\equal{\var@null}{#1}}{
   }{
@@ -273,39 +274,34 @@
 %% chapter picture width at ebook \paperwidth for 3mm cropmarks (STE-Vorgabe)
 %%
 \titlespacing*{\chapter}{0pt}{*27.5}{*6}
-\ifthenelse{\boolean{var@draft}}{
-  \titleformat{\chapter}[display]
-  {\bfseries\Large}
-  {}
-  {-3ex}
-  {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {};
-    \\\filcenter \Huge\sffamily #1
-  }
-  [\vspace{1ex}%
-  \titlerule]%
+\ifthenelse{\boolean{var@print}}{
+    \titleformat{\chapter}[display]
+      {\bfseries\Large}
+      {}
+      {-3ex}
+      {\ifthenelse{\equal{\var@chapterimg}{} \OR \boolean{var@draft}}{
+          \tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {};
+        }{
+          \tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\dimexpr(\paperwidth + 3mm)]{\var@chapterimg}};
+        }\\\filcenter \Huge\sffamily #1
+      }
+      [\vspace{1ex}%
+      \titlerule]%
 }{
-  \ifthenelse{\boolean{var@print}}{
     \titleformat{\chapter}[display]
       {\bfseries\Large}
       {}
       {-3ex}
-      {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\dimexpr(\paperwidth + 3mm)]{\var@chapterimg}};
-        \\\filcenter \Huge\sffamily #1
+      {\ifthenelse{\equal{\var@chapterimg}{} \OR \boolean{var@draft}}{
+          \tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {};
+        }{
+          \tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\paperwidth]{\var@chapterimg}};
+        }\\\filcenter \Huge\sffamily #1
       }
       [\vspace{1ex}%
       \titlerule]%
-  }{
-    \titleformat{\chapter}[display]
-      {\bfseries\Large}
-      {}
-      {-3ex}
-      {\tikz[remember picture,overlay]\node[inner sep=0pt] at ($(current page.north) + (0,-3.5cm)$) {\includegraphics[width=\paperwidth]{\var@chapterimg}};
-      \\\filcenter \Huge\sffamily #1
-      }
-      [\vspace{1ex}%
-      \titlerule]%
-  }
 }
+
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  
 %% foliation, page numbering etc.
