@@ -1,0 +1,89 @@
+\varchapter{Title of Chapter}{\textit{Bibliographic Info}, 
+    DOI:~\href{https://doi.org/10.5281/zenodo.XXXXXXX}{10.5281/zenodo.XXXXXXX}\\
+    \href{https://creativecommons.org/licenses/by-sa/4.0/}{CC BY-SA 4.0} 
+    Steinbeis-Edition (Verteilte Architekturen; XX, Stuttgart 202X
+}
+\lipsum[1-5] 
+
+\begin{vartable}[h]{|r||l|l|}{tab:label1}{descritive text on this table \dots}
+  \hline
+  \textbf{X}&\textbf{Y}&\textbf{Z}\\\hline\hline
+  x&y&z\\\hline
+  x&y&z\\\hline
+  x&y&z\\\hline
+\end{vartable}
+
+References to this table: \ref{tab:label1} (S.~\pageref{tab:label1}).
+
+\vargraphics[credits]{b}{0.5}{book/chapter1/example1.png}{fig:label.1.1}{
+  caption text \dots
+}
+
+\nomenclature{ABC}{TBA}
+
+\begin{varexcursus}{Title}   
+    \lipsum[1-2]
+\end{varexcursus}
+
+\lipsum[5-7]
+
+\vargraphicsWideRotate[source info for this figure]{}{book/chapter1/example1.png}{fig:label.1.2}{
+  caption text \dots
+}
+\vargraphicsWideRotate[credits for this figure]{}{book/chapter1/example1.png}{fig:id}{
+  caption text \dots
+}
+
+
+\lipsum[8-10]
+
+\begin{varremark}
+    \lipsum[1]
+\end{varremark}
+
+\section{Heading}
+\lipsum[13]
+\subsection{Heading}
+\lipsum[14]
+\subsubsection{Heading}
+\lipsum[15]
+\paragraph{Heading}
+\lipsum[16]
+\subparagraph{Heading}
+\lipsum[17]
+
+\varactivitiessection
+\lipsum[17]
+
+\begin{varactivity}{the objective of this activity \dots}
+  \lipsum[18-19]
+\end{varactivity}
+
+\begin{varactivity}{my activity objective}
+  \lipsum[22]
+\end{varactivity}
+
+
+\begin{lstlisting}
+import java.util.*;
+public class Test extends Toast implements Brot {
+    // ...
+}
+\end{lstlisting}
+
+Listings can have captions, and can be referenced (e.\,g.~Listing~\ref{lis:htmllisting}).
+\begin{lstlisting}[language=HTML, caption={sourcecode in different languages possible, can have a caption}, label=lis:htmllisting]
+<html>
+  <head><title>abc def</title></head>
+  <body>
+    <ul>
+      <li>...<ul><li>...</li></ul></li>
+    </ul>
+  </body>
+</html>
+\end{lstlisting}
+
+short listings (max 3 lines):
+\begin{lstlisting}[style=nonumbers]
+$ /bin/rm -r /
+\end{lstlisting}
