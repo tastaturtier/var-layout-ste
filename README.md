@@ -27,11 +27,11 @@ The TeX Gyre fonts are being released under the [GUST Font License (GFL)](http:/
 
 # Options
 The ``var`` layout class can be controlled through the following parameters:
+- ``draft=true/false`` (optional, default: ``false``)
 - ``lang=german/british`` (optional, default: ``german``) 
 - ``ebook=true/false`` (optional, default: ``false``)
 - ``prefacefile=texfile`` (optional)
 - ``lastpagefile=texfile`` (optional)
-- ``draft=true/false`` (optional, default: ``false``)
 
 ## Language Option: ``lang=xxx`` (``xxx`` one of ``german``, ``british``)
 - ``xxx`` will be passed to the [``polyglossia``](https://www.ctan.org/pkg/polyglossia) packageas default/main language, thus in principle all [``polyglossia``](https://www.ctan.org/pkg/polyglossia) languages ca be used
@@ -68,18 +68,18 @@ The ``var`` layout class can be controlled through the following parameters:
 - no need to fill up with empty pages to meet the pages with odd numbers
 
 ## Option Print: ``ebook=false`` (or leaving ebook option away)
-- Vorwort (fancy, aber ohne Kapitelname im Header), römische Seitenzahlen, Beginn bei V
-- auffüllen bis vor ungerade Seite mit leeren Seiten
-- TOC (Standard-Kopf/Fußzeile), römische Seitenzahlen
-- auffüllen bis vor ungerade Seite mit leeren Seiten
-- Part (plain), arabische Seitenzahlen, Beginn bei 1
-- auffüllen bis vor ungerade Seite mit leeren Seiten
-- Kapitel (auf ungerader Seite beginnen), arabische Seitenzahlen
+- preface, roman page numbers and plain page header
+- fill up empty page, if needed
+- table of contents (starting on odd page number), roman page on footer and heading on page header
+- fill up empty page, if needed
+- part (starting on odd page number), plain page style - only page number, empty header, arabic page numbers, starting with 1
+- fill up empty page, if needed
+- chapter (starting on odd page number), arabic page on footer and heading on page header
 
 ## pagination
 - Page numbers start with v (roman 5) (print)/vi (roman 6) (ebook).
 - The first 4/5 pages are provided by the publisher.
-- pages without text are empty (print) resp. are not included (e-book) 
+- Pages without text are empty (print) resp. are not included (e-book) .
 
 # Macros/Commands
 
@@ -110,33 +110,54 @@ Parameters in brackets (``[`` ``]``) are optional and can be omitted. All three 
 - ``activity``-environments (at least one) must follow
 
 ## ``\vargraphics[``_credits_``]{``_pos_``}{``_width_fraction_``}{``_graphics_file_``}{``_label_``}{``_caption_``}``
-- arbitrary number of occurences
+- arbitrary number of occurrences
 - between ``\begin{document}`` and ``\end{document}``
 
 ## ``\vargraphicsWide[``_credits_``]{``_pos_``}{``_graphics_file_``}{``_label_``}{``_caption_``}``
-- arbitrary number of occurences
+- arbitrary number of occurrences
 - between ``\begin{document}`` and ``\end{document}``
 
 ## ``\vargraphicsWideRotate[``_credits_``]{``_pos_``}{``_graphics_file_``}{``_label_``}{``_caption_``}``
-- arbitrary number of occurences
+- arbitrary number of occurrences
 - between ``\begin{document}`` and ``\end{document}``
 
 # Environments
+
+Parameters in brackets (``[`` ``]``) are optional and can be omitted. All three forms in the following example are valid:
+
+```latex
+    \begin{vartable}{c}{label}{text}
+        x\\
+    \end{vartable}
+
+    \begin{vartable}[]{c}{label}{text}
+        x\\
+    \end{vartable}
+
+    \begin{vartable}[h]{c}{label}{text}
+        x\\
+    \end{vartable}
+```
+
 ## ``\begin{varexcursus}{``_title_text_``}
 - for additional topics
+- arbitrary number of occurrences
+- between ``\begin{document}`` and ``\end{document}``
 - will be formatted as floating box and placed somewhere near the point where it is created in the text
 - content may consist of several text paragraphs, includegraphic, table etc. are allowed
 - footnotes, floats, etc. are not allowed
 - text (i.e. the box itself) must fit on one page
   
 ```latex
-    \begin{varexcursus}{title text \dots}
+    \begin{varexcursus}{title text}
         text 
     \end{varexcursus}
 ```
 
 ## ``\begin{varremark}``
 - for important information
+- arbitrary number of occurrences
+- between ``\begin{document}`` and ``\end{document}``
 - will be formatted highlighted (with "!" at the outer margin)
 - placed exactly where created
 - content should be short but may consist of several paragraphs
@@ -149,6 +170,12 @@ Parameters in brackets (``[`` ``]``) are optional and can be omitted. All three 
 ```
 
 ## ``\begin{vartable}[``_pos_``]{``_tabular_spec_``}{``_label_``}{``_caption_text_``}``
+- produces floating table
+- arbitrary number of occurrences
+- between ``\begin{document}`` and ``\end{document}``
+- content and _tabular_spec_ as in ``tabular`` environment
+- _pos_ is like the position specification of ``figure`` i.e. ``t`` (_top_), ``b`` (_bottom_), ``h`` (_here_), ``!`` (override LaTeX layout), can be combined
+- reference to the table: ``\ref{label}`` (table number) or ``\pageref{label}`` (page number)
 
 ```latex
     \begin{vartable}[h]{rll}{label}{text \dots}
@@ -157,6 +184,13 @@ Parameters in brackets (``[`` ``]``) are optional and can be omitted. All three 
         x   & y   & z\\
     \end{vartable}
 ```
-
 ## ``\begin{varactivity}[``_condition_text_``]{``_objective_``}``
 - must be after ``\varactivitiessection``
+- at least one occurrence per ``\varactivitiessection``
+- _condition_text_ describes the circumstances under which this activity step should be taken (e.g. ``optional``, ``on Win10``, ``weekdays``)
+
+```latex
+    \begin{varactivity}[optional]{prepare something}
+        text
+    \end{varactivity}
+```
