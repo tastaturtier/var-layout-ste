@@ -1,5 +1,4 @@
-# LaTeX layout class var-layout-ste
-LaTeX2e (XeLaTeX) layout class for Steinbeis Edition series "[Verteilte Architekturen](https://verteiltearchitekturen.de/)" (var)
+# LaTeX2e (XeLaTeX) layout class for Steinbeis Edition series "[Verteilte Architekturen](https://verteiltearchitekturen.de/)" (var)
 
 This layout class has been developed for my series of books called ["Verteilte Architekturen" (VAR)](https://verteiltearchitekturen.de/) published by [Steinbeis Edition](https://www.steinbeis-edition.de/) in Stuttgart, Germany.
 
