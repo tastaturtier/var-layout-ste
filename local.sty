@@ -30,5 +30,22 @@
 \providecommand{\literal}[1]{\texttt{\color{type}{#1}}}
 \providecommand{\operator}[1]{\texttt{\color{operator}{#1}}}
 \providecommand{\variable}[1]{\texttt{\color{variable}{#1}}}
+\RequirePackage{listings}
+%\RequirePackage{listingsutf8}
+\lstdefinelanguage{newjava}{
+    language=Java,
+    otherkeywords={var, ->}
+}
+\lstset{          
+      basicstyle=\small\ttfamily,
+      keywordstyle=\color{keyword}\bfseries,
+      identifierstyle=, 
+      commentstyle=\color{comment}, 
+      stringstyle=\small, 
+      showstringspaces=false,
+      language=newjava,
+      columns=flexible,
+      inputencoding=utf8x,
+      morecomment=[s][\color{javadoccomment}]{/**}{*/}}
 
 \usepackage{lipsum}
